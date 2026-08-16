@@ -27,7 +27,7 @@ public final class Animation {
      * third-person view for its duration, restoring whatever camera type was active before once
      * it stops.
      */
-    public boolean forceThirdPerson = true;
+    public boolean forceThirdPerson = false;
 
     private Animation(Identifier id) {
         this.id = id;
