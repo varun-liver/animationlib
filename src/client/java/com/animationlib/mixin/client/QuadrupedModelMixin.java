@@ -6,29 +6,24 @@ import com.animationlib.client.MissingBoneWarnings;
 import com.animationlib.client.RenderStateEntityId;
 import com.animationlib.impl.AnimationPlayerImpl;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.QuadrupedModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-// Targets HumanoidModel rather than a specific entity's model class: every vanilla humanoid-
-// shaped entity (zombies, skeletons, villagers, piglins, etc.), not just the player, renders
-// through this same model class, just parameterized by its own render state type, so this
-// covers all of them for free. Bones are matched by name directly against the model's part tree
-// (e.g. "left_arm", the model's own part name) rather than a fixed list, so an animation applies
-// to whatever bone names actually exist on whatever entity it's played on.
-@Mixin(HumanoidModel.class)
-abstract class HumanoidModelMixin<T extends HumanoidRenderState> {
-    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("TAIL"))
+// Targets QuadrupedModel rather than PigModel specifically: pigs and other four-legged mobs that
+// don't override setupAnim render through this same shared model class, so this covers all of
+// them for free, the same way HumanoidModelMixin covers humanoid-shaped mobs.
+@Mixin(QuadrupedModel.class)
+abstract class QuadrupedModelMixin<T extends LivingEntityRenderState> {
+    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)V", at = @At("TAIL"))
     private void animationlib$applyAnimation(T state, CallbackInfo ci) {
         Integer entityId = ((FabricRenderState) state).getData(RenderStateEntityId.KEY);
-        // Handed off to ModelMixin, which captures this same model instance's render-time bone
-        // positions for Animation#cameraFollowsEntity moments later, once renderToBuffer runs.
         BoneLookAt.beginModel(entityId);
         if (entityId == null) {
             return;
@@ -43,7 +38,7 @@ abstract class HumanoidModelMixin<T extends HumanoidRenderState> {
                     if (root.hasChild(bone)) {
                         animationlib$applyBone(root.getChild(bone), sample, bone);
                     } else {
-                        MissingBoneWarnings.warnOnce(entityId, bone, "HumanoidModel");
+                        MissingBoneWarnings.warnOnce(entityId, bone, "QuadrupedModel");
                     }
                 }));
     }

@@ -9,7 +9,8 @@
     "HumanoidModelMixin",
     "ItemInHandRendererMixin",
     "ModelMixin",
-    "MouseHandlerMixin"
+    "MouseHandlerMixin",
+    "QuadrupedModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

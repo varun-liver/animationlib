@@ -40,8 +40,12 @@ public final class AnimationPlayerImpl {
     public static void play(int entityId, Identifier animationId, Integer cameraFollowEntityId,
                              String cameraFollowBone, boolean forceThirdPerson) {
         AnimationRegistry.get(animationId).ifPresentOrElse(
-                data -> PLAYING.put(entityId, new Playing(animationId, data, cameraFollowEntityId, cameraFollowBone,
-                        forceThirdPerson, System.currentTimeMillis())),
+                data -> {
+                    PLAYING.put(entityId, new Playing(animationId, data, cameraFollowEntityId, cameraFollowBone,
+                            forceThirdPerson, System.currentTimeMillis()));
+                    LOGGER.info("animationlib: playing {} on entity {} (bones: {})", animationId, entityId,
+                            data.bones().keySet());
+                },
                 () -> LOGGER.warn("animationlib: unknown animation {}", animationId)
         );
     }
