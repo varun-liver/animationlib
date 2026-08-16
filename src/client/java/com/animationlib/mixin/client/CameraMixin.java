@@ -42,7 +42,7 @@ abstract class CameraMixin {
         Optional<AnimationPlayerImpl.Sample> sample =
                 entity == null ? Optional.empty() : AnimationPlayerImpl.sample(entity.getId());
 
-        animationlib$updateForcedThirdPerson(sample.map(AnimationPlayerImpl.Sample::forceThirdPerson).orElse(false));
+        animationlib$updateForcedThirdPerson(entity, sample.map(AnimationPlayerImpl.Sample::forceThirdPerson).orElse(false));
 
         boolean hasFollowTarget = sample.map(s -> s.cameraFollowEntityId() != null && s.cameraFollowBone() != null)
                 .orElse(false);
@@ -86,7 +86,10 @@ abstract class CameraMixin {
         }
     }
 
-    private static void animationlib$updateForcedThirdPerson(boolean force) {
+    private static void animationlib$updateForcedThirdPerson(Entity entity,boolean force) {
+        if (entity != Minecraft.getInstance().player) {
+            return;
+        }
         Options options = Minecraft.getInstance().options;
         if (force) {
             if (animationlib$previousCameraType == null) {
