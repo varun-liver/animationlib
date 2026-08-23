@@ -1,6 +1,7 @@
 plugins {
     id 'net.fabricmc.fabric-loom' version '1.17-SNAPSHOT'
     id 'maven-publish'
+    id 'com.modrinth.minotaur' version '2.+'
 }
 
 version = project.mod_version
@@ -102,5 +103,23 @@ publishing {
         // Notice: This block does NOT have the same function as the block in the top level.
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
+    }
+}
+
+// Publish to Modrinth with:  MODRINTH_TOKEN=<pat> ./gradlew modrinth
+// The project must already exist on Modrinth; put its id in modrinth_project_id
+// (gradle.properties). Note uploadFile = jar, not remapJar: this Loom version has
+// no remapJar task, and the jar it builds is already in the game's own mappings.
+modrinth {
+    token = providers.environmentVariable("MODRINTH_TOKEN").getOrElse("")
+    projectId = project.findProperty("modrinth_project_id") ?: ""
+    versionNumber = project.mod_version
+    versionName = "animationlib ${project.mod_version}"
+    versionType = "release"
+    uploadFile = tasks.jar
+    gameVersions = [project.minecraft_version]
+    loaders = ["fabric"]
+    dependencies {
+        required.project "fabric-api"
     }
 }

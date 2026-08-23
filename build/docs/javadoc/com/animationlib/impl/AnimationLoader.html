@@ -89,8 +89,9 @@ loadScripts(document, 'script');</script>
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">AnimationLoader</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
 implements net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener</span></div>
-<div class="block">Loads Blockbench/Bedrock-format animation JSON from
-<code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code> on every resource reload.</div>
+<div class="block">Loads animations from <code>assets/&lt;namespace&gt;/animationlib/animations/</code> on every resource
+reload: Blockbench/Bedrock-format <code>.json</code>, and glTF 2.0 <code>.gltf</code>/<code>.glb</code> (see
+<code>GltfLoader</code>).</div>
 </div>
 </section>
 <section class="summary">

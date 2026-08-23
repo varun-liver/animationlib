@@ -1,0 +1,116 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.animationlib",
+    "module": "animationlib",
+    "version": "26.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "animationlib-26.2.jar",
+          "url": "animationlib-26.2.jar",
+          "size": 58969,
+          "sha512": "0a27d81dc15e0f65e66fddd7e0a1162e034212b6ac306a2ffa3fc8fde9cac4ec0d9f03b08d1a4d45863c9822bc4f3d5e1cee1b6f28852bedb9de2c2bcaab4db4",
+          "sha256": "388f04a130a52c45cd458c4853db74c23cf0d20fce52ef4dbd7f373212450b64",
+          "sha1": "ff4096a920e314dde770b7ad85471d73581abc04",
+          "md5": "b378593c6aab797d6e82533a93baa96e"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 25,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "net.fabricmc",
+          "module": "fabric-loader",
+          "version": {
+            "requires": "0.19.3"
+          }
+        },
+        {
+          "group": "net.fabricmc.fabric-api",
+          "module": "fabric-api",
+          "version": {
+            "requires": "0.157.0+26.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "animationlib-26.2.jar",
+          "url": "animationlib-26.2.jar",
+          "size": 58969,
+          "sha512": "0a27d81dc15e0f65e66fddd7e0a1162e034212b6ac306a2ffa3fc8fde9cac4ec0d9f03b08d1a4d45863c9822bc4f3d5e1cee1b6f28852bedb9de2c2bcaab4db4",
+          "sha256": "388f04a130a52c45cd458c4853db74c23cf0d20fce52ef4dbd7f373212450b64",
+          "sha1": "ff4096a920e314dde770b7ad85471d73581abc04",
+          "md5": "b378593c6aab797d6e82533a93baa96e"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "animationlib-26.2-sources.jar",
+          "url": "animationlib-26.2-sources.jar",
+          "size": 32217,
+          "sha512": "881086f54c98d64bd261e8ef75551c7cabf4067902124b8199674c391208979a3b80ae027b555bb79624bc1d57d2933080b71e3e14264ba70afb37eb3a5c7c3b",
+          "sha256": "fa99dbb59829a3acab124d305edb7af73ced0c1233fb0ba590e48262552c7c5c",
+          "sha1": "4ec62d7d24648fea877c247a0d9f45dc96f4072a",
+          "md5": "9184bb682fe617583f0871e7c728ce0f"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "animationlib-26.2-javadoc.jar",
+          "url": "animationlib-26.2-javadoc.jar",
+          "size": 4213304,
+          "sha512": "d4014dfc2bd27b71c72b781bb30a51c111a904a3b606e34011222ac793316d2bf219cd525a972bbd2c950c05a93a423d7e5e8b1a5e11546942d54dc929c0a2d4",
+          "sha256": "fefd66418633ef3389f6d5b0db67ccbb97587d90d884e9ae99aa920da38be685",
+          "sha1": "5775bc88b66eef205983fa5efe86d24cd51f1ad3",
+          "md5": "dd8a822a9930071d857c991a9916eb6e"
+        }
+      ]
+    }
+  ]
+}

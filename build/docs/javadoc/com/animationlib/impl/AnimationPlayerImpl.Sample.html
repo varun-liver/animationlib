@@ -58,7 +58,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-summary" tabindex="0">Method Summary</a></li>
 <li><a href="#constructor-detail" tabindex="0">Constructor Details</a>
 <ol class="toc-list">
-<li><a href="#%3Cinit%3E(com.animationlib.api.AnimationData,double)" tabindex="0">Sample(AnimationData, double)</a></li>
+<li><a href="#%3Cinit%3E(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,double)" tabindex="0">Sample(AnimationData, Integer, String, boolean, double)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
@@ -69,6 +69,9 @@ loadScripts(document, 'script');</script>
 <li><a href="#hashCode()" tabindex="0">hashCode()</a></li>
 <li><a href="#equals(java.lang.Object)" tabindex="0">equals(Object)</a></li>
 <li><a href="#data()" tabindex="0">data()</a></li>
+<li><a href="#cameraFollowEntityId()" tabindex="0">cameraFollowEntityId()</a></li>
+<li><a href="#cameraFollowBone()" tabindex="0">cameraFollowBone()</a></li>
+<li><a href="#forceThirdPerson()" tabindex="0">forceThirdPerson()</a></li>
 <li><a href="#time()" tabindex="0">time()</a></li>
 </ol>
 </li>
@@ -91,7 +94,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">AnimationPlayerImpl.Sample</span>(<a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a>&nbsp;data, double&nbsp;time)
+<div class="type-signature"><span class="modifiers">public static record </span><span class="element-name type-name-label">AnimationPlayerImpl.Sample</span>(<a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a>&nbsp;data, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone, boolean&nbsp;forceThirdPerson, double&nbsp;time)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 </div>
 </section>
@@ -105,7 +108,10 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.animationlib.api.AnimationData,double)" class="member-name-link">Sample</a><wbr>(<a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a>&nbsp;data,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,double)" class="member-name-link">Sample</a><wbr>(<a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a>&nbsp;data,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
  double&nbsp;time)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>Sample</code> record class.</div>
@@ -124,6 +130,16 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cameraFollowBone()" class="member-name-link">cameraFollowBone</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>cameraFollowBone</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#cameraFollowEntityId()" class="member-name-link">cameraFollowEntityId</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>cameraFollowEntityId</code> record component.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#data()" class="member-name-link">data</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
@@ -134,25 +150,30 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#forceThirdPerson()" class="member-name-link">forceThirdPerson</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>forceThirdPerson</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hashCode()" class="member-name-link">hashCode</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a hash code value for this object.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#position(java.lang.String)" class="member-name-link">position</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;bone)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#rotation(java.lang.String)" class="member-name-link">rotation</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;bone)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#position(java.lang.String)" class="member-name-link">position</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;bone)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#time()" class="member-name-link">time</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="../api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#rotation(java.lang.String)" class="member-name-link">rotation</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;bone)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#time()" class="member-name-link">time</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>time</code> record component.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>final <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toString()" class="member-name-link">toString</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns a string representation of this record class.</div>
 </div>
 </div>
@@ -173,15 +194,21 @@ loadScripts(document, 'script');</script>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.animationlib.api.AnimationData,double)">
+<section class="detail" id="&lt;init&gt;(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,double)">
 <h3>Sample</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Sample</span><wbr><span class="parameters">(<a href="../api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a>&nbsp;data,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
  double&nbsp;time)</span></div>
 <div class="block">Creates an instance of a <code>Sample</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>data</code> - the value for the <code>data</code> record component</dd>
+<dd><code>cameraFollowEntityId</code> - the value for the <code>cameraFollowEntityId</code> record component</dd>
+<dd><code>cameraFollowBone</code> - the value for the <code>cameraFollowBone</code> record component</dd>
+<dd><code>forceThirdPerson</code> - the value for the <code>forceThirdPerson</code> record component</dd>
 <dd><code>time</code> - the value for the <code>time</code> record component</dd>
 </dl>
 </div>
@@ -267,6 +294,45 @@ loadScripts(document, 'script');</script>
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <code>data</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="cameraFollowEntityId()">
+<h3>cameraFollowEntityId</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">cameraFollowEntityId</span>()</div>
+<div class="block">Returns the value of the <code>cameraFollowEntityId</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>cameraFollowEntityId</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="cameraFollowBone()">
+<h3>cameraFollowBone</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">cameraFollowBone</span>()</div>
+<div class="block">Returns the value of the <code>cameraFollowBone</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>cameraFollowBone</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="forceThirdPerson()">
+<h3>forceThirdPerson</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">forceThirdPerson</span>()</div>
+<div class="block">Returns the value of the <code>forceThirdPerson</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>forceThirdPerson</code> record component</dd>
 </dl>
 </div>
 </section>

@@ -1,3 +1,4 @@
 com.animationlib
 com.animationlib.api
 com.animationlib.impl
+com.animationlib.impl.net

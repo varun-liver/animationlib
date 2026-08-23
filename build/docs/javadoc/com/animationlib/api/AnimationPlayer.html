@@ -56,9 +56,11 @@ loadScripts(document, 'script');</script>
 <li><a href="#method-summary" tabindex="0">Method Summary</a></li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" tabindex="0">play(Entity, Identifier)</a></li>
+<li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)" tabindex="0">play(Entity, Identifier, Integer, String, boolean)</a></li>
+<li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier,java.lang.Integer)" tabindex="0">play(Entity, Identifier, Integer, String, boolean, Identifier, Integer)</a></li>
 <li><a href="#stop(net.minecraft.world.entity.Entity)" tabindex="0">stop(Entity)</a></li>
 <li><a href="#isPlaying(net.minecraft.world.entity.Entity)" tabindex="0">isPlaying(Entity)</a></li>
+<li><a href="#isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" tabindex="0">isPlaying(Entity, Identifier)</a></li>
 </ol>
 </li>
 </ol>
@@ -76,10 +78,17 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">AnimationPlayer</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Plays a loaded animation on an entity. While playing, its <code>head</code>, <code>body</code>,
-<code>arm_left</code>, <code>arm_right</code>, <code>leg_left</code>, <code>leg_right</code> bones are applied to
-the entity's rendered player model each frame, and its <code>camera</code> bone is applied to that
-entity's camera if it's the client's own player.</div>
+<div class="block">Plays a loaded animation on an entity. While playing, its bones (matched by name against
+whatever the entity's model actually has, e.g. <code>head</code>, <code>left_arm</code>) are applied to
+the entity's rendered model each frame, and its <code>camera</code> bone is applied to the viewing
+client's own camera if the entity being animated is that client's own player.
+
+<p>Works from either side. Called on the logical server, with any entity, it updates
+server-side state directly and broadcasts the change to everyone tracking that entity (plus
+the entity itself, if it's a <code>ServerPlayer</code>, since a player doesn't track itself). Called
+on the logical client, it sends a request to the server; the server always applies that request
+to the sender's own player, regardless of which entity was passed, since a client has no
+authority to trigger animations on other entities.</div>
 </div>
 </section>
 <section class="summary">
@@ -98,9 +107,25 @@ entity's camera if it's the client's own player.</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isPlaying(net.minecraft.world.entity.Entity)" class="member-name-link">isPlaying</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" class="member-name-link">isPlaying</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
  net.minecraft.resources.Identifier&nbsp;animationId)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ net.minecraft.resources.Identifier&nbsp;soundId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;soundEntityId)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#stop(net.minecraft.world.entity.Entity)" class="member-name-link">stop</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity)</code></div>
@@ -123,11 +148,28 @@ entity's camera if it's the client's own player.</div>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)">
+<section class="detail" id="play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)">
 <h3>play</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">play</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity,
- net.minecraft.resources.Identifier&nbsp;animationId)</span></div>
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier,java.lang.Integer)">
+<h3>play</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">play</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ net.minecraft.resources.Identifier&nbsp;soundId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;soundEntityId)</span></div>
 </div>
 </section>
 </li>
@@ -144,6 +186,15 @@ entity's camera if it's the client's own player.</div>
 <h3>isPlaying</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPlaying</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)">
+<h3>isPlaying</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPlaying</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId)</span></div>
 </div>
 </section>
 </li>

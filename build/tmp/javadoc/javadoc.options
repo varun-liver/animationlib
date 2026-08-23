@@ -5,6 +5,7 @@
 -doctitle 'animationlib 26.2 API'
 -notimestamp 
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\Animationlib.java'
+'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\api\\Animation.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\api\\AnimationData.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\api\\AnimationPlayer.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\api\\AnimationRegistry.java'
@@ -16,4 +17,7 @@
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\AnimationLoader.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\AnimationPlayerImpl.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\AnimationSampler.java'
+'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\GltfLoader.java'
+'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\net\\PlayAnimationPayload.java'
+'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\net\\StopAnimationPayload.java'
 'C:\\Users\\sreng\\animationlib\\src\\main\\java\\com\\animationlib\\impl\\package-info.java'

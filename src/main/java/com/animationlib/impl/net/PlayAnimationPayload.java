@@ -16,7 +16,8 @@ import net.minecraft.resources.Identifier;
  * {@link #resolvedCameraFollowBone()} to read them back as nullable values.
  */
 public record PlayAnimationPayload(int entityId, Identifier animationId, int cameraFollowEntityId,
-                                    String cameraFollowBone, boolean forceThirdPerson) implements CustomPacketPayload {
+                                    String cameraFollowBone, boolean forceThirdPerson,
+                                    String soundId, int soundEntityId) implements CustomPacketPayload {
     public static final Type<PlayAnimationPayload> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath("animationlib", "play_animation"));
 
@@ -26,15 +27,20 @@ public record PlayAnimationPayload(int entityId, Identifier animationId, int cam
             ByteBufCodecs.VAR_INT, PlayAnimationPayload::cameraFollowEntityId,
             ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::cameraFollowBone,
             ByteBufCodecs.BOOL, PlayAnimationPayload::forceThirdPerson,
+            ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::soundId,
+            ByteBufCodecs.VAR_INT, PlayAnimationPayload::soundEntityId,
             PlayAnimationPayload::new
     );
 
     public static PlayAnimationPayload of(int entityId, Identifier animationId, Integer cameraFollowEntityId,
-                                           String cameraFollowBone, boolean forceThirdPerson) {
+                                           String cameraFollowBone, boolean forceThirdPerson,
+                                           Identifier soundId, Integer soundEntityId) {
         return new PlayAnimationPayload(entityId, animationId,
                 cameraFollowEntityId != null ? cameraFollowEntityId : -1,
                 cameraFollowBone != null ? cameraFollowBone : "",
-                forceThirdPerson);
+                forceThirdPerson,
+                soundId != null ? soundId.toString() : "",
+                soundEntityId != null ? soundEntityId : -1);
     }
 
     public Integer resolvedCameraFollowEntityId() {
@@ -43,6 +49,14 @@ public record PlayAnimationPayload(int entityId, Identifier animationId, int cam
 
     public String resolvedCameraFollowBone() {
         return cameraFollowBone.isEmpty() ? null : cameraFollowBone;
+    }
+
+    public Identifier resolvedSoundId() {
+        return soundId.isEmpty() ? null : Identifier.parse(soundId);
+    }
+
+    public Integer resolvedSoundEntityId() {
+        return soundEntityId == -1 ? null : soundEntityId;
     }
 
     @Override

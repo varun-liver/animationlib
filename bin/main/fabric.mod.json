@@ -4,10 +4,15 @@
   "version": "${version}",
   "name": "animationlib",
   "description": "API library for other mods to build custom animations on top of.",
-  "authors": [],
-  "contact": {},
-  "license": "All-Rights-Reserved",
-  "icon": "assets/animationlib/icon.png",
+  "authors": [
+    "Varun"
+  ],
+  "contact": {
+    "homepage": "https://github.com/varun-liver/animationlib",
+    "sources": "https://github.com/varun-liver/animationlib",
+    "issues": "https://github.com/varun-liver/animationlib/issues"
+  },
+  "license": "LicenseRef-animationlib",
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [

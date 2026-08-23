@@ -55,46 +55,62 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">A named, reusable handle to an animation resource: configured once, then played as often as you
+like.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">A parsed animation: its loop flag, length in seconds, and per-bone keyframe channels.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/Animationlib.html" title="class in com.animationlib">Animationlib</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/impl/AnimationLoader.html" title="class in com.animationlib.impl">AnimationLoader</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Loads Blockbench/Bedrock-format animation JSON from
-<code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code> on every resource reload.</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/Animationlib.html" title="class in com.animationlib">Animationlib</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/impl/AnimationLoader.html" title="class in com.animationlib.impl">AnimationLoader</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Loads animations from <code>assets/&lt;namespace&gt;/animationlib/animations/</code> on every resource
+reload: Blockbench/Bedrock-format <code>.json</code>, and glTF 2.0 <code>.gltf</code>/<code>.glb</code> (see
+<code>GltfLoader</code>).</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Plays a loaded animation on an entity.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Tracks which animation each entity is currently playing, keyed by entity id.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/api/AnimationRegistry.html" title="class in com.animationlib.api">AnimationRegistry</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code>
-(Blockbench/Bedrock-format animation files).</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="com/animationlib/api/AnimationRegistry.html" title="class in com.animationlib.api">AnimationRegistry</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/</code>,
+populated automatically on resource reload.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">The animated channels for a single bone.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/BoneChannel.html" title="class in com.animationlib.api">BoneChannel</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/BoneChannel.html" title="class in com.animationlib.api">BoneChannel</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">The keyframes for one transform channel (rotation, position, or scale) of a bone.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/Keyframe.html" title="class in com.animationlib.api">Keyframe</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/Keyframe.html" title="class in com.animationlib.api">Keyframe</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab4">
 <div class="block">A single keyframe on a <a href="com/animationlib/api/BoneChannel.html" title="class in com.animationlib.api"><code>BoneChannel</code></a>.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Serverbound, it's a play request from a client for its own player; <code>entityId</code> is ignored
+and re-derived from the sender.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab4">
+<div class="block">Serverbound, it's a stop request from a client for its own player; <code>entityId</code> is ignored
+and re-derived from the sender.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab4"><a href="com/animationlib/api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab4">
 <div class="block">A rotation/position/scale triple, as used by Blockbench/Bedrock animation keyframes.</div>
 </div>
 </div>

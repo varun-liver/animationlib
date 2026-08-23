@@ -49,9 +49,14 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<a href="#I:Y">Y</a>&nbsp;<a href="#I:Z">Z</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<a href="#I:Y">Y</a>&nbsp;<a href="#I:Z">Z</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
+<dt><a href="com/animationlib/api/Animation.html" class="type-name-link" title="class in com.animationlib.api">Animation</a> - Class in <a href="com/animationlib/api/package-summary.html">com.animationlib.api</a></dt>
+<dd>
+<div class="block">A named, reusable handle to an animation resource: configured once, then played as often as you
+like.</div>
+</dd>
 <dt><a href="com/animationlib/api/AnimationData.html" class="type-name-link" title="class in com.animationlib.api">AnimationData</a> - Record Class in <a href="com/animationlib/api/package-summary.html">com.animationlib.api</a></dt>
 <dd>
 <div class="block">A parsed animation: its loop flag, length in seconds, and per-bone keyframe channels.</div>
@@ -60,14 +65,19 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Creates an instance of a <code>AnimationData</code> record class.</div>
 </dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#animationId()" class="member-name-link">animationId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>animationId</code> record component.</div>
+</dd>
 <dt><a href="com/animationlib/Animationlib.html" class="type-name-link" title="class in com.animationlib">Animationlib</a> - Class in <a href="com/animationlib/package-summary.html">com.animationlib</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/Animationlib.html#%3Cinit%3E()" class="member-name-link">Animationlib()</a> - Constructor for class com.animationlib.<a href="com/animationlib/Animationlib.html" title="class in com.animationlib">Animationlib</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/AnimationLoader.html" class="type-name-link" title="class in com.animationlib.impl">AnimationLoader</a> - Class in <a href="com/animationlib/impl/package-summary.html">com.animationlib.impl</a></dt>
 <dd>
-<div class="block">Loads Blockbench/Bedrock-format animation JSON from
-<code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code> on every resource reload.</div>
+<div class="block">Loads animations from <code>assets/&lt;namespace&gt;/animationlib/animations/</code> on every resource
+reload: Blockbench/Bedrock-format <code>.json</code>, and glTF 2.0 <code>.gltf</code>/<code>.glb</code> (see
+<code>GltfLoader</code>).</div>
 </dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html" class="type-name-link" title="class in com.animationlib.api">AnimationPlayer</a> - Class in <a href="com/animationlib/api/package-summary.html">com.animationlib.api</a></dt>
 <dd>
@@ -81,8 +91,12 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationRegistry.html" class="type-name-link" title="class in com.animationlib.api">AnimationRegistry</a> - Class in <a href="com/animationlib/api/package-summary.html">com.animationlib.api</a></dt>
 <dd>
-<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code>
-(Blockbench/Bedrock-format animation files).</div>
+<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/</code>,
+populated automatically on resource reload.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#audioTrack(java.lang.String,net.minecraft.world.entity.player.Player)" class="member-name-link">audioTrack(String, Player)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">Plays <code>soundId</code> once at <code>player</code>'s position each time this animation starts.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
@@ -110,6 +124,36 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#cameraFollowBone()" class="member-name-link">cameraFollowBone()</a> - Method in record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>cameraFollowBone</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#cameraFollowBone()" class="member-name-link">cameraFollowBone()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>cameraFollowBone</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#cameraFollowEntityId()" class="member-name-link">cameraFollowEntityId()</a> - Method in record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>cameraFollowEntityId</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#cameraFollowEntityId()" class="member-name-link">cameraFollowEntityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>cameraFollowEntityId</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#cameraFollowsEntity(net.minecraft.world.entity.Entity,java.lang.String)" class="member-name-link">cameraFollowsEntity(Entity, String)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">Like <a href="com/animationlib/api/Animation.html#cameraFollowsPlayer(java.lang.String)"><code>Animation.cameraFollowsPlayer(String)</code></a>, but aims the camera at <code>bone</code> of some other
+<code>entity</code> entirely, which doesn't need to be the one this animation is played on.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#cameraFollowsPlayer(java.lang.String)" class="member-name-link">cameraFollowsPlayer(String)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">While this animation plays, locks the camera onto <code>bone</code> of the entity it's being
+played on, instead of onto this animation's own <code>camera</code> bone, if any.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#CODEC" class="member-name-link">CODEC</a> - Static variable in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#CODEC" class="member-name-link">CODEC</a> - Static variable in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/package-summary.html">com.animationlib</a> - package com.animationlib</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/package-summary.html">com.animationlib.api</a> - package com.animationlib.api</dt>
@@ -120,6 +164,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Internal implementation of animationlib.</div>
 </dd>
+<dt><a href="com/animationlib/impl/net/package-summary.html">com.animationlib.impl.net</a> - package com.animationlib.impl.net</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/BoneChannel.html#constant(com.animationlib.api.Vec3f)" class="member-name-link">constant(Vec3f)</a> - Static method in record class com.animationlib.api.<a href="com/animationlib/api/BoneChannel.html" title="class in com.animationlib.api">BoneChannel</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -132,6 +178,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#entityId()" class="member-name-link">entityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>entityId</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#entityId()" class="member-name-link">entityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>entityId</code> record component.</div>
+</dd>
 <dt><a href="com/animationlib/api/AnimationData.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
@@ -155,6 +209,30 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
 <dd>
 <div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>
+<div class="block">Indicates whether some other object is "equal to" this one.</div>
+</dd>
+</dl>
+<h2 class="title" id="I:F">F</h2>
+<dl class="index">
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#forceThirdPerson()" class="member-name-link">forceThirdPerson()</a> - Method in record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>forceThirdPerson</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#forceThirdPerson()" class="member-name-link">forceThirdPerson()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>forceThirdPerson</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#forceThirdPerson(boolean)" class="member-name-link">forceThirdPerson(boolean)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">When <code>true</code>, playing this animation forces the client into third-person view for its
+duration, restoring whatever camera type was active before once it stops.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
@@ -192,18 +270,40 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a hash code value for this object.</div>
 </dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#hashCode()" class="member-name-link">hashCode()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns a hash code value for this object.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
+<dt><a href="com/animationlib/api/Animation.html#id()" class="member-name-link">id()</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationRegistry.html#ids()" class="member-name-link">ids()</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationRegistry.html" title="class in com.animationlib.api">AnimationRegistry</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/AnimationLoader.html#ids()" class="member-name-link">ids()</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationLoader.html" title="class in com.animationlib.impl">AnimationLoader</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#init(java.lang.String)" class="member-name-link">init(String)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#init(java.lang.String,java.lang.String)" class="member-name-link">init(String, String)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#init(net.minecraft.resources.Identifier)" class="member-name-link">init(Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/AnimationLoader.html#INSTANCE" class="member-name-link">INSTANCE</a> - Static variable in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationLoader.html" title="class in com.animationlib.impl">AnimationLoader</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#isPlaying(int)" class="member-name-link">isPlaying(int)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#isPlaying(int,net.minecraft.resources.Identifier)" class="member-name-link">isPlaying(int, Identifier)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#isPlaying(net.minecraft.world.entity.Entity)" class="member-name-link">isPlaying(Entity)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html#isPlaying(net.minecraft.world.entity.Entity)" class="member-name-link">isPlaying(Entity)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationPlayer.html#isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" class="member-name-link">isPlaying(Entity, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:K">K</h2>
@@ -245,6 +345,8 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">of(int, Identifier, Integer, String, boolean, Identifier, Integer)</a> - Static method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/Animationlib.html#onInitialize()" class="member-name-link">onInitialize()</a> - Method in class com.animationlib.<a href="com/animationlib/Animationlib.html" title="class in com.animationlib">Animationlib</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/AnimationLoader.html#onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager)" class="member-name-link">onResourceManagerReload(ResourceManager)</a> - Method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationLoader.html" title="class in com.animationlib.impl">AnimationLoader</a></dt>
@@ -252,10 +354,23 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#play(int,net.minecraft.resources.Identifier)" class="member-name-link">play(int, Identifier)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#play(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)" class="member-name-link">play(int, Identifier, Integer, String, boolean)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" class="member-name-link">play(Entity, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dt><a href="com/animationlib/api/Animation.html#play(net.minecraft.world.entity.Entity)" class="member-name-link">play(Entity)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean, Identifier, Integer)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html" class="type-name-link" title="class in com.animationlib.impl.net">PlayAnimationPayload</a> - Record Class in <a href="com/animationlib/impl/net/package-summary.html">com.animationlib.impl.net</a></dt>
+<dd>
+<div class="block">Serverbound, it's a play request from a client for its own player; <code>entityId</code> is ignored
+and re-derived from the sender.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,java.lang.String,int)" class="member-name-link">PlayAnimationPayload(int, Identifier, int, String, boolean, String, int)</a> - Constructor for record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>PlayAnimationPayload</code> record class.</div>
+</dd>
 <dt><a href="com/animationlib/api/BoneAnimation.html#position()" class="member-name-link">position()</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>position</code> record component.</div>
@@ -273,6 +388,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedCameraFollowBone()" class="member-name-link">resolvedCameraFollowBone()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedCameraFollowEntityId()" class="member-name-link">resolvedCameraFollowEntityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedSoundEntityId()" class="member-name-link">resolvedSoundEntityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedSoundId()" class="member-name-link">resolvedSoundId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/BoneAnimation.html#rotation()" class="member-name-link">rotation()</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a></dt>
 <dd>
 <div class="block">Returns the value of the <code>rotation</code> record component.</div>
@@ -284,7 +407,7 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#sample(int)" class="member-name-link">sample(int)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#%3Cinit%3E(com.animationlib.api.AnimationData,double)" class="member-name-link">Sample(AnimationData, double)</a> - Constructor for record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#%3Cinit%3E(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,double)" class="member-name-link">Sample(AnimationData, Integer, String, boolean, double)</a> - Constructor for record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>Sample</code> record class.</div>
 </dd>
@@ -292,10 +415,33 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the value of the <code>scale</code> record component.</div>
 </dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#sendToServer(net.minecraft.network.protocol.common.custom.CustomPacketPayload)" class="member-name-link">sendToServer(CustomPacketPayload)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#setClientSender(java.util.function.Consumer)" class="member-name-link">setClientSender(Consumer)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#soundEntityId()" class="member-name-link">soundEntityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>soundEntityId</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#soundId()" class="member-name-link">soundId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>soundId</code> record component.</div>
+</dd>
 <dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#stop(int)" class="member-name-link">stop(int)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#stop(net.minecraft.world.entity.Entity)" class="member-name-link">stop(Entity)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html#stop(net.minecraft.world.entity.Entity)" class="member-name-link">stop(Entity)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html" class="type-name-link" title="class in com.animationlib.impl.net">StopAnimationPayload</a> - Record Class in <a href="com/animationlib/impl/net/package-summary.html">com.animationlib.impl.net</a></dt>
+<dd>
+<div class="block">Serverbound, it's a stop request from a client for its own player; <code>entityId</code> is ignored
+and re-derived from the sender.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#%3Cinit%3E(int)" class="member-name-link">StopAnimationPayload(int)</a> - Constructor for record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>
+<div class="block">Creates an instance of a <code>StopAnimationPayload</code> record class.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
@@ -331,6 +477,26 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a string representation of this record class.</div>
 </dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#toString()" class="member-name-link">toString()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#toString()" class="member-name-link">toString()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns a string representation of this record class.</div>
+</dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#trackedBonesFor(int)" class="member-name-link">trackedBonesFor(int)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dd>
+<div class="block">Which bone names, if any, some currently-playing animation wants to look at on this entity.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#type()" class="member-name-link">type()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#type()" class="member-name-link">type()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#TYPE" class="member-name-link">TYPE</a> - Static variable in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/StopAnimationPayload.html#TYPE" class="member-name-link">TYPE</a> - Static variable in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/StopAnimationPayload.html" title="class in com.animationlib.impl.net">StopAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
@@ -368,7 +534,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/animationlib/api/Vec3f.html#ZERO" class="member-name-link">ZERO</a> - Static variable in record class com.animationlib.api.<a href="com/animationlib/api/Vec3f.html" title="class in com.animationlib.api">Vec3f</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<a href="#I:Y">Y</a>&nbsp;<a href="#I:Z">Z</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:B">B</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:F">F</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:K">K</a>&nbsp;<a href="#I:L">L</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:O">O</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<a href="#I:X">X</a>&nbsp;<a href="#I:Y">Y</a>&nbsp;<a href="#I:Z">Z</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </body>
 </html>

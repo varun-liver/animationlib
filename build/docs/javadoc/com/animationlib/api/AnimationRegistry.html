@@ -75,8 +75,15 @@ loadScripts(document, 'script');</script>
 <div class="horizontal-scroll">
 <div class="type-signature"><span class="modifiers">public final class </span><span class="element-name type-name-label">AnimationRegistry</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/*.json</code>
-(Blockbench/Bedrock-format animation files). Populated automatically on resource reload.</div>
+<div class="block">Read-only access to animations loaded from <code>assets/&lt;namespace&gt;/animationlib/animations/</code>,
+populated automatically on resource reload. Supported formats are Blockbench/Bedrock
+<code>.json</code> and glTF 2.0 <code>.gltf</code>/<code>.glb</code>.
+
+<p>An animation's id is <em>not</em> its filename: the namespace comes from the file's asset
+path, and the path comes from the animation's own name inside the file, lowercased with anything
+outside <code>[a-z0-9/._-]</code> replaced by <code>_</code>. So a Blender action <code>headAction</code>
+exported into <code>assets/mymod/animationlib/animations/pig.glb</code> is <code>mymod:headaction</code>,
+and one file can define several animations.</div>
 </div>
 </section>
 <section class="summary">

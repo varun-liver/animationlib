@@ -2,6 +2,7 @@ package com.animationlib.api;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 /**
  * A named, reusable handle to an animation resource: configured once, then played as often as you
@@ -40,6 +41,9 @@ public final class Animation {
     private String cameraFollowBone;
 
     private boolean forceThirdPerson;
+
+    private Identifier soundId;
+    private Player soundPlayer;
 
     private Animation(Identifier id) {
         this.id = id;
@@ -91,6 +95,33 @@ public final class Animation {
         this.cameraFollowBone = bone;
         return this;
     }
+    /**
+     * Plays {@code soundId} once at {@code player}'s position each time this animation starts.
+     * Everyone in earshot hears it, not just {@code player}. Pass {@code null} for either
+     * argument to clear the track.
+     *
+     * <p>The id must name a registered {@code SoundEvent}: a vanilla one such as
+     * {@code "minecraft:entity.zombie.ambient"}, or your own, declared in
+     * {@code assets/<modid>/sounds.json} with the {@code .ogg} under
+     * {@code assets/<modid>/sounds/} and registered as a {@code SoundEvent}.
+     *
+     * <p>Because this needs a {@code Player} in hand, it can't be set on a {@code static final}
+     * handle at class-load time the way {@link #cameraFollowsPlayer} and {@link #forceThirdPerson}
+     * can — call it at the point you play the animation:
+     * <pre>{@code
+     * Example.ANIMATION.audioTrack("modid:whoosh", player);
+     * Example.ANIMATION.play(zombie);
+     * }</pre>
+     *
+     * <p>Fire-and-forget: {@link #stop} does not cut the sound off, and a looping animation does
+     * not re-trigger it on each cycle.
+     */
+    public Animation audioTrack(String soundId, Player player) {
+        boolean cleared = soundId == null || player == null;
+        this.soundId = cleared ? null : Identifier.parse(soundId);
+        this.soundPlayer = cleared ? null : player;
+        return this;
+    }
 
     /**
      * When {@code true}, playing this animation forces the client into third-person view for its
@@ -107,7 +138,8 @@ public final class Animation {
     }
 
     public void play(Entity entity) {
-        AnimationPlayer.play(entity, id, cameraFollowId(entity), cameraFollowBone, forceThirdPerson);
+        AnimationPlayer.play(entity, id, cameraFollowId(entity), cameraFollowBone, forceThirdPerson,
+                soundId, soundPlayer != null ? soundPlayer.getId() : null);
     }
 
     public void stop(Entity entity) {
