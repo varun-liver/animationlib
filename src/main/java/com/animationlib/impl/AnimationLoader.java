@@ -148,7 +148,9 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
             }
         }
 
-        return new AnimationData(name, loop, length, Map.copyOf(bones));
+        boolean relative = !json.has("relative") || json.get("relative").getAsBoolean();
+        boolean forceThirdPerson = json.has("force_third_person") && json.get("force_third_person").getAsBoolean();
+        return new AnimationData(name, loop, length, Map.copyOf(bones), relative, forceThirdPerson);
     }
 
     // A channel is either a constant [x, y, z] array, or an object mapping timestamp -> keyframe value.

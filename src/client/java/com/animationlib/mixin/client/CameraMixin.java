@@ -30,6 +30,7 @@ abstract class CameraMixin {
     @Shadow
     public abstract Vec3 position();
 
+
     @Shadow
     protected abstract void setRotation(float yRot, float xRot);
 
@@ -75,14 +76,19 @@ abstract class CameraMixin {
             }
         }
 
-        // Position always comes from this animation's own "camera" bone. The camera already
-        // tracks the player's body position every frame (set earlier in this same update()
-        // call); add the bone's own position from the JSON directly on top of that, rather than
-        // transforming it through the camera's rotation the way Camera#move does.
+        // Position always comes from this animation's own "camera" bone. If the animation is
+        // "relative" (the default), the camera already tracks the player's body position every
+        // frame (set earlier in this same update() call); add the bone's own position from the
+        // JSON directly on top of that, rather than transforming it through the camera's rotation
+        // the way Camera#move does. Otherwise the JSON position is absolute world coordinates.
         Vec3f position = s.position("camera");
         if (position != null) {
-            Vec3 base = this.position();
-            this.setPosition(base.x + position.x(), base.y + position.y(), base.z + position.z());
+            if (s.data().relative()) {
+                Vec3 base = this.position();
+                this.setPosition(base.x + position.x(), base.y + position.y(), base.z + position.z());
+            } else {
+                this.setPosition(position.x(), position.y(), position.z());
+            }
         }
     }
 
