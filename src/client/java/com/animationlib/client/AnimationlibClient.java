@@ -16,6 +16,7 @@ public class AnimationlibClient implements ClientModInitializer {
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(AnimationLoader.INSTANCE);
 
         AnimationPlayerImpl.setClientSender(ClientPlayNetworking::send);
+        ActionBarDisplay.init();
 
         ClientPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) ->
                 AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),

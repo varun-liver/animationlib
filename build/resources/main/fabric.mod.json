@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "animationlib",
-  "version": "1.0.0+mc26.2",
+  "version": "1.0.0+mc26.3",
   "name": "animationlib",
   "description": "API library for other mods to build custom animations on top of.",
   "authors": [
@@ -33,8 +33,8 @@
     }
   ],
   "depends": {
-    "fabricloader": ">=0.19.3",
+    "fabricloader": ">=0.19.5",
     "fabric-api": "*",
-    "minecraft": "26.2"
+    "minecraft": "26.3"
   }
 }
