@@ -84,7 +84,9 @@ abstract class CameraMixin {
         Vec3f position = s.position("camera");
         if (position != null) {
             if (s.data().relative()) {
-                Vec3 base = this.position();
+                // The entity's own eye position, not this.position(): in third person the game has
+                // already pulled the camera back behind the player by now, which would skew the offset.
+                Vec3 base = entity.getEyePosition(deltaTracker.getGameTimeDeltaPartialTick(false));
                 this.setPosition(base.x + position.x(), base.y + position.y(), base.z + position.z());
             } else {
                 this.setPosition(position.x(), position.y(), position.z());
