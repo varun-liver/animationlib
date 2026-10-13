@@ -3,6 +3,7 @@
   "id": "animationlib",
   "version": "${version}",
   "name": "animationlib",
+  "icon": "assets/animationlib/icon.png",
   "description": "API library for other mods to build custom animations on top of.",
   "authors": [
     "Varun"
