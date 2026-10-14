@@ -7,6 +7,7 @@ import com.animationlib.impl.net.StopAnimationPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 
 public class AnimationlibClient implements ClientModInitializer {
@@ -25,8 +26,15 @@ public class AnimationlibClient implements ClientModInitializer {
             AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),
                     payload.resolvedCameraFollowEntityId(), payload.resolvedCameraFollowBone(),
                     payload.forceThirdPerson());
-            if (payload.resolvedSound() != null) {
-                AnimationSounds.play(payload.entityId(), payload.resolvedSound());
+            // An explicit sound from AudioTrack wins over the animation's own "sound" field.
+            Identifier sound = payload.resolvedSound();
+            if (sound == null) {
+                sound = AnimationLoader.get(payload.animationId())
+                        .map(data -> data.sound() != null ? Identifier.tryParse(data.sound()) : null)
+                        .orElse(null);
+            }
+            if (sound != null) {
+                AnimationSounds.play(payload.entityId(), sound);
             }
         });
         ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) ->
