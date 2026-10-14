@@ -34,7 +34,7 @@ final class AnimationSounds {
     private static final String DIRECTORY = "animationlib/sounds/";
     private static final float MAX_DISTANCE = 16.0f;
 
-    private record Playing(int source) {
+    private record Playing(int entityId, int source) {
     }
 
     private static final Map<Identifier, Integer> BUFFERS = new HashMap<>();
@@ -61,6 +61,9 @@ final class AnimationSounds {
             return;
         }
 
+        // A new animation on the same entity replaces the old one, sound included.
+        stop(entityId);
+
         Integer buffer = buffer(mc, sound);
         if (buffer == null) {
             return;
@@ -76,7 +79,20 @@ final class AnimationSounds {
         AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, 1.0f);
         AL10.alSource3f(source, AL10.AL_POSITION, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ());
         AL10.alSourcePlay(source);
-        PLAYING.add(new Playing(source));
+        PLAYING.add(new Playing(entityId, source));
+    }
+
+    /** Cuts off any sound still playing for {@code entityId}'s animation. */
+    static void stop(int entityId) {
+        Iterator<Playing> it = PLAYING.iterator();
+        while (it.hasNext()) {
+            Playing playing = it.next();
+            if (playing.entityId() == entityId) {
+                AL10.alSourceStop(playing.source());
+                AL10.alDeleteSources(playing.source());
+                it.remove();
+            }
+        }
     }
 
     private static Integer buffer(Minecraft mc, Identifier sound) {

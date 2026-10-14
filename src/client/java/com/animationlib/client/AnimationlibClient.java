@@ -37,7 +37,9 @@ public class AnimationlibClient implements ClientModInitializer {
                 AnimationSounds.play(payload.entityId(), sound);
             }
         });
-        ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) ->
-                AnimationPlayerImpl.stop(payload.entityId()));
+        ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) -> {
+            AnimationPlayerImpl.stop(payload.entityId());
+            AnimationSounds.stop(payload.entityId());
+        });
     }
 }
