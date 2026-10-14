@@ -19,10 +19,16 @@ public class AnimationlibClient implements ClientModInitializer {
         ActionBarDisplay.init();
         AnimationCommand.init();
 
-        ClientPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) ->
-                AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),
-                        payload.resolvedCameraFollowEntityId(), payload.resolvedCameraFollowBone(),
-                        payload.forceThirdPerson()));
+        AnimationSounds.init();
+
+        ClientPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) -> {
+            AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),
+                    payload.resolvedCameraFollowEntityId(), payload.resolvedCameraFollowBone(),
+                    payload.forceThirdPerson());
+            if (payload.resolvedSound() != null) {
+                AnimationSounds.play(payload.entityId(), payload.resolvedSound());
+            }
+        });
         ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) ->
                 AnimationPlayerImpl.stop(payload.entityId()));
     }
