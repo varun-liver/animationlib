@@ -1,5 +1,6 @@
 package com.animationlib.api;
 
+import com.animationlib.impl.LocalAudio;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 
@@ -22,6 +23,24 @@ import net.minecraft.world.entity.Entity;
  */
 public final class AudioTrack {
     private AudioTrack() {
+    }
+
+    /**
+     * Plays a sound by name, on its own with no animation. {@code audioName} is the sound file's
+     * name without its extension, in the same form as above: {@code "modid:whoosh"} for
+     * {@code assets/modid/animationlib/sounds/whoosh.ogg}.
+     *
+     * <p>Client only, and only for the local player: it plays flat at full volume, with no
+     * position, and nothing is sent over the network. Does nothing on a dedicated server.
+     * Call it again to layer another copy; {@link #stop(String)} cuts off every copy.
+     */
+    public static void play(String audioName) {
+        LocalAudio.play(Identifier.parse(audioName));
+    }
+
+    /** Cuts off every copy of {@code audioName} still playing from {@link #play(String)}. */
+    public static void stop(String audioName) {
+        LocalAudio.stop(Identifier.parse(audioName));
     }
 
     public static void play(Entity entity, String animationId, String sound) {

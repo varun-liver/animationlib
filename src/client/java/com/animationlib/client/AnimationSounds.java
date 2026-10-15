@@ -34,7 +34,10 @@ final class AnimationSounds {
     private static final String DIRECTORY = "animationlib/sounds/";
     private static final float MAX_DISTANCE = 16.0f;
 
-    private record Playing(int entityId, int source) {
+    // entityId is LOCAL for sounds played by name, which no animation stop should touch.
+    private static final int LOCAL = -1;
+
+    private record Playing(int entityId, Identifier sound, int source) {
     }
 
     private static final Map<Identifier, Integer> BUFFERS = new HashMap<>();
@@ -56,14 +59,37 @@ final class AnimationSounds {
         if (entity == null) {
             return;
         }
-        if (sound.getPath().endsWith(".mp4") || sound.getPath().endsWith(".mp3")) {
-            LOGGER.warn("animationlib: {} is not supported, only .ogg files can be played", sound);
-            return;
-        }
 
         // A new animation on the same entity replaces the old one, sound included.
         stop(entityId);
 
+        start(mc, entityId, sound, entity);
+    }
+
+    /** Plays {@code sound} flat, at full volume, for the local player only. */
+    static void playLocal(Identifier sound) {
+        start(Minecraft.getInstance(), LOCAL, sound, null);
+    }
+
+    /** Cuts off every sound of this name started by {@link #playLocal}. */
+    static void stopLocal(Identifier sound) {
+        Iterator<Playing> it = PLAYING.iterator();
+        while (it.hasNext()) {
+            Playing playing = it.next();
+            if (playing.entityId() == LOCAL && playing.sound().equals(sound)) {
+                AL10.alSourceStop(playing.source());
+                AL10.alDeleteSources(playing.source());
+                it.remove();
+            }
+        }
+    }
+
+    // entity == null plays relative to the listener, with no distance falloff.
+    private static void start(Minecraft mc, int entityId, Identifier sound, Entity entity) {
+        if (sound.getPath().endsWith(".mp4") || sound.getPath().endsWith(".mp3")) {
+            LOGGER.warn("animationlib: {} is not supported, only .ogg files can be played", sound);
+            return;
+        }
         Integer buffer = buffer(mc, sound);
         if (buffer == null) {
             return;
@@ -74,12 +100,18 @@ final class AnimationSounds {
         int source = AL10.alGenSources();
         AL10.alSourcei(source, AL10.AL_BUFFER, buffer);
         AL10.alSourcef(source, AL10.AL_GAIN, volume);
-        AL10.alSourcef(source, AL10.AL_REFERENCE_DISTANCE, 1.0f);
-        AL10.alSourcef(source, AL10.AL_MAX_DISTANCE, MAX_DISTANCE);
-        AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, 1.0f);
-        AL10.alSource3f(source, AL10.AL_POSITION, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ());
+        if (entity != null) {
+            AL10.alSourcef(source, AL10.AL_REFERENCE_DISTANCE, 1.0f);
+            AL10.alSourcef(source, AL10.AL_MAX_DISTANCE, MAX_DISTANCE);
+            AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, 1.0f);
+            AL10.alSource3f(source, AL10.AL_POSITION, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ());
+        } else {
+            AL10.alSourcei(source, AL10.AL_SOURCE_RELATIVE, AL10.AL_TRUE);
+            AL10.alSourcef(source, AL10.AL_ROLLOFF_FACTOR, 0.0f);
+            AL10.alSource3f(source, AL10.AL_POSITION, 0.0f, 0.0f, 0.0f);
+        }
         AL10.alSourcePlay(source);
-        PLAYING.add(new Playing(entityId, source));
+        PLAYING.add(new Playing(entityId, sound, source));
     }
 
     /** Cuts off any sound still playing for {@code entityId}'s animation. */
@@ -100,7 +132,8 @@ final class AnimationSounds {
         if (cached != null) {
             return cached;
         }
-        Identifier file = Identifier.fromNamespaceAndPath(sound.getNamespace(), DIRECTORY + sound.getPath() + ".ogg");
+        Identifier file = Identifier.fromNamespaceAndPath(sound.getNamespace(), DIRECTORY + sound.getPath()
+                + (sound.getPath().endsWith(".ogg") ? "" : ".ogg"));
         Resource resource = mc.getResourceManager().getResource(file).orElse(null);
         if (resource == null) {
             LOGGER.warn("animationlib: sound file {} not found", file);

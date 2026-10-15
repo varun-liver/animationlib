@@ -2,6 +2,7 @@ package com.animationlib.client;
 
 import com.animationlib.impl.AnimationLoader;
 import com.animationlib.impl.AnimationPlayerImpl;
+import com.animationlib.impl.LocalAudio;
 import com.animationlib.impl.net.PlayAnimationPayload;
 import com.animationlib.impl.net.StopAnimationPayload;
 import net.fabricmc.api.ClientModInitializer;
@@ -21,6 +22,7 @@ public class AnimationlibClient implements ClientModInitializer {
         AnimationCommand.init();
 
         AnimationSounds.init();
+        LocalAudio.setHandlers(AnimationSounds::playLocal, AnimationSounds::stopLocal);
 
         ClientPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) -> {
             AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),

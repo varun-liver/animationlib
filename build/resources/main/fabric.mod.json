@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "animationlib",
-  "version": "1.1.0+mc26.3",
+  "version": "1.2.0+mc26.3",
   "name": "animationlib",
   "icon": "assets/animationlib/icon.png",
   "description": "API library for other mods to build custom animations on top of.",
