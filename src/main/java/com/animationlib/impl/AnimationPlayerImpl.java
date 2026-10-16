@@ -94,7 +94,8 @@ public final class AnimationPlayerImpl {
         }
 
         return Optional.of(new Sample(playing.data, playing.cameraFollowEntityId, playing.cameraFollowBone,
-                playing.forceThirdPerson || playing.data.forceThirdPerson(), playing.hideInventory, time));
+                playing.forceThirdPerson || playing.data.forceThirdPerson(),
+                playing.hideInventory || playing.data.hideInventory(), time));
     }
 
     private record Playing(Identifier id, AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,

@@ -3,6 +3,11 @@ package com.animationlib.api;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 /**
  * A named, reusable handle to an animation resource: configured once, then played as often as you
  * like.
@@ -42,12 +47,45 @@ public final class Animation {
     private boolean forceThirdPerson;
     private boolean hideInventory;
 
+    // Every handle made through init(), by id (the latest one wins), so /animation can play an
+    // animation with the options its handle was configured with.
+    private static final Map<Identifier, Animation> HANDLES = new ConcurrentHashMap<>();
+
     private Animation(Identifier id) {
         this.id = id;
     }
 
     public static Animation init(Identifier id) {
-        return new Animation(id);
+        Animation animation = new Animation(id);
+        HANDLES.put(id, animation);
+        return animation;
+    }
+
+    /**
+     * The handle most recently created with {@code init} for {@code id}, if any. A handle only
+     * exists once the class declaring it has been loaded.
+     */
+    public static Optional<Animation> registered(Identifier id) {
+        return Optional.ofNullable(HANDLES.get(id));
+    }
+
+    /** The ids of every handle created so far with {@code init}. */
+    public static Set<Identifier> registeredIds() {
+        return Set.copyOf(HANDLES.keySet());
+    }
+
+    /**
+     * A new handle with the same id and options, that isn't registered: changing it leaves this
+     * one (and what {@link #registered} returns) untouched.
+     */
+    public Animation copy() {
+        Animation copy = new Animation(id);
+        copy.cameraFollowEntity = cameraFollowEntity;
+        copy.cameraFollowsPlayedEntity = cameraFollowsPlayedEntity;
+        copy.cameraFollowBone = cameraFollowBone;
+        copy.forceThirdPerson = forceThirdPerson;
+        copy.hideInventory = hideInventory;
+        return copy;
     }
 
     public static Animation init(String namespace, String path) {

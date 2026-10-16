@@ -13,10 +13,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 
+import java.util.stream.Stream;
+
 /**
  * {@code /animation <id> [thirdperson]}: plays any loaded animation on your own player. Ids are
  * tab-completed from every animation currently loaded, e.g. {@code /animation animationtest:wave}.
- * The optional {@code thirdperson} flag forces third-person view while it plays.
+ * If a mod declared an {@link Animation} handle for that id, it plays with that handle's options
+ * (camera follow, forced third person, hidden inventory). The optional {@code thirdperson} flag
+ * forces third-person view while it plays, on top of those.
  *
  * <p>{@code /animation stop [entityId]} stops the animation (and its sound) on your own player, or
  * on the entity with that id; like any client request, the server only honors another entity if
@@ -36,7 +40,8 @@ final class AnimationCommand {
                                                 IntegerArgumentType.getInteger(context, "entityId")))))
                         .then(ClientCommands.argument("id", IdentifierArgument.id())
                                 .suggests((context, builder) -> SharedSuggestionProvider.suggest(
-                                        AnimationRegistry.ids().stream().map(Identifier::toString), builder))
+                                        Stream.concat(AnimationRegistry.ids().stream(), Animation.registeredIds().stream())
+                                                .distinct().map(Identifier::toString), builder))
                                 .executes(context -> play(context.getSource(),
                                         context.getArgument("id", Identifier.class), false))
                                 .then(ClientCommands.literal("thirdperson")
@@ -60,7 +65,13 @@ final class AnimationCommand {
             source.sendError(Component.literal("Unknown animation: " + id));
             return 0;
         }
-        Animation.init(id).forceThirdPerson(thirdPerson).play(source.getPlayer());
+        // A handle declared in code (Animation.init) plays with its own options; the thirdperson
+        // flag only adds to those, on a copy, so it doesn't change the handle for later plays.
+        Animation animation = Animation.registered(id).map(Animation::copy).orElseGet(() -> Animation.init(id));
+        if (thirdPerson) {
+            animation.forceThirdPerson(true);
+        }
+        animation.play(source.getPlayer());
         source.sendFeedback(Component.literal("Playing " + id));
         return 1;
     }
