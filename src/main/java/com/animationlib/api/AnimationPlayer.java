@@ -34,15 +34,22 @@ public final class AnimationPlayer {
 
     public static void play(Entity entity, Identifier animationId, Integer cameraFollowEntityId,
                              String cameraFollowBone, boolean forceThirdPerson, Identifier sound) {
+        play(entity, animationId, cameraFollowEntityId, cameraFollowBone, forceThirdPerson, false, sound);
+    }
+
+    public static void play(Entity entity, Identifier animationId, Integer cameraFollowEntityId,
+                             String cameraFollowBone, boolean forceThirdPerson, boolean hideInventory,
+                             Identifier sound) {
         if (entity.level().isClientSide()) {
             AnimationPlayerImpl.sendToServer(PlayAnimationPayload.of(entity.getId(), animationId,
-                    cameraFollowEntityId, cameraFollowBone, forceThirdPerson, sound));
+                    cameraFollowEntityId, cameraFollowBone, forceThirdPerson, hideInventory, sound));
             return;
         }
 
-        AnimationPlayerImpl.play(entity.getId(), animationId, cameraFollowEntityId, cameraFollowBone, forceThirdPerson);
+        AnimationPlayerImpl.play(entity.getId(), animationId, cameraFollowEntityId, cameraFollowBone,
+                forceThirdPerson, hideInventory);
         broadcast(entity, PlayAnimationPayload.of(entity.getId(), animationId, cameraFollowEntityId,
-                cameraFollowBone, forceThirdPerson, sound));
+                cameraFollowBone, forceThirdPerson, hideInventory, sound));
     }
 
     public static void stop(Entity entity) {

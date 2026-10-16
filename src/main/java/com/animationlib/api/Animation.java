@@ -40,7 +40,7 @@ public final class Animation {
     private String cameraFollowBone;
 
     private boolean forceThirdPerson;
-
+    private boolean hideInventory;
 
     private Animation(Identifier id) {
         this.id = id;
@@ -102,12 +102,24 @@ public final class Animation {
         return this;
     }
 
+
+    /**
+     * When {@code true}, playing this animation hides the player's inventory for its duration: the
+     * inventory screen can't be opened (and is closed if already open), and the hotbar is not
+     * drawn. Defaults to {@code false}.
+     */
+    public Animation hideInventory(boolean hide) {
+        this.hideInventory = hide;
+        return this;
+    }
+
     public Identifier id() {
         return id;
     }
 
     public void play(Entity entity) {
-        AnimationPlayer.play(entity, id, cameraFollowId(entity), cameraFollowBone, forceThirdPerson);
+        AnimationPlayer.play(entity, id, cameraFollowId(entity), cameraFollowBone, forceThirdPerson,
+                hideInventory, null);
     }
 
     public void stop(Entity entity) {

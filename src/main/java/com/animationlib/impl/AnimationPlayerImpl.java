@@ -38,11 +38,11 @@ public final class AnimationPlayerImpl {
     }
 
     public static void play(int entityId, Identifier animationId, Integer cameraFollowEntityId,
-                             String cameraFollowBone, boolean forceThirdPerson) {
+                             String cameraFollowBone, boolean forceThirdPerson, boolean hideInventory) {
         AnimationRegistry.get(animationId).ifPresentOrElse(
                 data -> {
                     PLAYING.put(entityId, new Playing(animationId, data, cameraFollowEntityId, cameraFollowBone,
-                            forceThirdPerson, System.currentTimeMillis()));
+                            forceThirdPerson, hideInventory, System.currentTimeMillis()));
                     LOGGER.info("animationlib: playing {} on entity {} (bones: {})", animationId, entityId,
                             data.bones().keySet());
                 },
@@ -94,15 +94,15 @@ public final class AnimationPlayerImpl {
         }
 
         return Optional.of(new Sample(playing.data, playing.cameraFollowEntityId, playing.cameraFollowBone,
-                playing.forceThirdPerson || playing.data.forceThirdPerson(), time));
+                playing.forceThirdPerson || playing.data.forceThirdPerson(), playing.hideInventory, time));
     }
 
     private record Playing(Identifier id, AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
-                            boolean forceThirdPerson, long startMillis) {
+                            boolean forceThirdPerson, boolean hideInventory, long startMillis) {
     }
 
     public record Sample(AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
-                          boolean forceThirdPerson, double time) {
+                          boolean forceThirdPerson, boolean hideInventory, double time) {
         public Vec3f rotation(String bone) {
             return channel(bone, BoneAnimation::rotation);
         }

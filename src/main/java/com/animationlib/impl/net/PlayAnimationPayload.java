@@ -17,7 +17,7 @@ import net.minecraft.resources.Identifier;
  */
 public record PlayAnimationPayload(int entityId, Identifier animationId, int cameraFollowEntityId,
                                     String cameraFollowBone, boolean forceThirdPerson,
-                                    String sound) implements CustomPacketPayload {
+                                    boolean hideInventory, String sound) implements CustomPacketPayload {
     public static final Type<PlayAnimationPayload> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath("animationlib", "play_animation"));
 
@@ -27,17 +27,19 @@ public record PlayAnimationPayload(int entityId, Identifier animationId, int cam
             ByteBufCodecs.VAR_INT, PlayAnimationPayload::cameraFollowEntityId,
             ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::cameraFollowBone,
             ByteBufCodecs.BOOL, PlayAnimationPayload::forceThirdPerson,
+            ByteBufCodecs.BOOL, PlayAnimationPayload::hideInventory,
             ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::sound,
             PlayAnimationPayload::new
     );
 
     public static PlayAnimationPayload of(int entityId, Identifier animationId, Integer cameraFollowEntityId,
                                            String cameraFollowBone, boolean forceThirdPerson,
-                                           Identifier sound) {
+                                           boolean hideInventory, Identifier sound) {
         return new PlayAnimationPayload(entityId, animationId,
                 cameraFollowEntityId != null ? cameraFollowEntityId : -1,
                 cameraFollowBone != null ? cameraFollowBone : "",
                 forceThirdPerson,
+                hideInventory,
                 sound != null ? sound.toString() : "");
     }
 
