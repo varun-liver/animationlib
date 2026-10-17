@@ -66,11 +66,12 @@ public final class AnimationPlayerImpl {
     /** Which bone names, if any, some currently-playing animation wants to look at on this entity. */
     public static Set<String> trackedBonesFor(int entityId) {
         Set<String> bones = new HashSet<>();
-        for (Playing playing : PLAYING.values()) {
-            if (playing.cameraFollowBone() != null
-                    && playing.cameraFollowEntityId() != null
-                    && playing.cameraFollowEntityId() == entityId) {
-                bones.add(playing.cameraFollowBone());
+        for (Map.Entry<Integer, Playing> entry : PLAYING.entrySet()) {
+            Playing playing = entry.getValue();
+            String bone = playing.followBone();
+            Integer followId = playing.followEntityId(entry.getKey());
+            if (bone != null && followId != null && followId == entityId) {
+                bones.add(bone);
             }
         }
         return bones;
@@ -93,13 +94,25 @@ public final class AnimationPlayerImpl {
             }
         }
 
-        return Optional.of(new Sample(playing.data, playing.cameraFollowEntityId, playing.cameraFollowBone,
+        return Optional.of(new Sample(playing.data, playing.followEntityId(entityId), playing.followBone(),
                 playing.forceThirdPerson || playing.data.forceThirdPerson(),
                 playing.hideInventory || playing.data.hideInventory(), time));
     }
 
     private record Playing(Identifier id, AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
                             boolean forceThirdPerson, boolean hideInventory, long startMillis) {
+        // A camera target set in code (cameraFollowsPlayer/cameraFollowsEntity) wins; otherwise the
+        // animation's own camera_follows_player, which always targets the entity it plays on.
+        String followBone() {
+            return cameraFollowBone != null ? cameraFollowBone : data.cameraFollowsPlayer();
+        }
+
+        Integer followEntityId(int playedOnEntityId) {
+            if (cameraFollowBone != null) {
+                return cameraFollowEntityId;
+            }
+            return data.cameraFollowsPlayer() != null ? Integer.valueOf(playedOnEntityId) : null;
+        }
     }
 
     public record Sample(AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
