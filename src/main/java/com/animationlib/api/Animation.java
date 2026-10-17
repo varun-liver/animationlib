@@ -144,7 +144,7 @@ public final class Animation {
     /**
      * When {@code true}, playing this animation hides the player's inventory for its duration: the
      * inventory screen can't be opened (and is closed if already open), and the hotbar is not
-     * drawn. Defaults to {@code false}.
+     * drawn, nor are the health, hunger, armor and XP bars around it. Defaults to {@code false}.
      */
     public Animation hideInventory(boolean hide) {
         this.hideInventory = hide;
