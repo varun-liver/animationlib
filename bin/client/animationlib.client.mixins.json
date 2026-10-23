@@ -5,14 +5,18 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "CameraMixin",
+    "EndermiteModelMixin",
     "EntityRendererMixin",
     "GuiMixin",
     "HudMixin",
     "HumanoidModelMixin",
+    "InheritedSetupAnimMixin",
     "ItemInHandRendererMixin",
     "ModelMixin",
     "MouseHandlerMixin",
-    "QuadrupedModelMixin"
+    "QuadrupedModelMixin",
+    "ShulkerModelMixin",
+    "TadpoleModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

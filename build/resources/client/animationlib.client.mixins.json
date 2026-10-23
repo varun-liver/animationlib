@@ -12,7 +12,8 @@
     "ItemInHandRendererMixin",
     "ModelMixin",
     "MouseHandlerMixin",
-    "QuadrupedModelMixin"
+    "QuadrupedModelMixin",
+    "SulfurCubeModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

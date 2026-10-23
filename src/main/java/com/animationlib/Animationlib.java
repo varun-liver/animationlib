@@ -1,6 +1,7 @@
 package com.animationlib;
 
 import com.animationlib.api.AnimationPlayer;
+import com.animationlib.impl.AnimationCommand;
 import com.animationlib.impl.net.PlayAnimationPayload;
 import com.animationlib.impl.net.StopAnimationPayload;
 import net.fabricmc.api.ModInitializer;
@@ -14,6 +15,8 @@ public class Animationlib implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AnimationCommand.init();
+
         PayloadTypeRegistry.serverboundPlay().register(PlayAnimationPayload.TYPE, PlayAnimationPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PlayAnimationPayload.TYPE, PlayAnimationPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(StopAnimationPayload.TYPE, StopAnimationPayload.CODEC);

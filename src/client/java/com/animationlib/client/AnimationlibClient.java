@@ -19,7 +19,6 @@ public class AnimationlibClient implements ClientModInitializer {
 
         AnimationPlayerImpl.setClientSender(ClientPlayNetworking::send);
         ActionBarDisplay.init();
-        AnimationCommand.init();
 
         AnimationSounds.init();
         LocalAudio.setHandlers(AnimationSounds::playLocal, AnimationSounds::stopLocal);
