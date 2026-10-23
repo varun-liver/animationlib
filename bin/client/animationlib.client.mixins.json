@@ -5,19 +5,28 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "CameraMixin",
+    "CopperGolemModelMixin",
+    "CreeperModelMixin",
     "EndermiteModelMixin",
     "EntityRendererMixin",
     "GuiMixin",
     "HudMixin",
     "HumanoidModelMixin",
     "InheritedSetupAnimMixin",
+    "IronGolemModelMixin",
     "ItemInHandRendererMixin",
     "ModelMixin",
     "ModelPartAccessor",
     "MouseHandlerMixin",
+    "NautilusModelMixin",
+    "PufferfishModelsMixin",
     "QuadrupedModelMixin",
     "ShulkerModelMixin",
-    "TadpoleModelMixin"
+    "SnowGolemModelMixin",
+    "TadpoleModelMixin",
+    "TropicalFishModelsMixin",
+    "WitherBossModelMixin",
+    "ZombieNautilusCoralModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1
