@@ -1,6 +1,7 @@
 package com.animationlib.mixin.client;
 
 import com.animationlib.client.BoneLookAt;
+import com.animationlib.client.ModelBones;
 import com.animationlib.impl.AnimationPlayerImpl;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.List;
 import java.util.Set;
 
 // renderToBuffer is final on Model, so this fires for every entity's model right after its own
@@ -41,13 +43,16 @@ abstract class ModelMixin {
 
         ModelPart root = this.root();
         for (String bone : tracked) {
-            if (!root.hasChild(bone)) {
+            // Every part from the root's child down to the bone, so a nested bone's position
+            // includes the transforms of the parts it hangs off.
+            List<ModelPart> path = ModelBones.path(root, bone);
+            if (path.isEmpty()) {
                 continue;
             }
 
             PoseStack local = new PoseStack();
             local.last().pose().set(poseStack.last().pose());
-            root.getChild(bone).translateAndRotate(local);
+            path.forEach(part -> part.translateAndRotate(local));
             Vector3f translation = local.last().pose().getTranslation(new Vector3f());
             BoneLookAt.setPosition(entityId, bone, new Vec3(translation.x(), translation.y(), translation.z()));
         }

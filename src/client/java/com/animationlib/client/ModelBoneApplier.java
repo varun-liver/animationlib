@@ -33,8 +33,9 @@ public final class ModelBoneApplier {
                     if (bone.equals("camera")) {
                         return;
                     }
-                    if (root.hasChild(bone)) {
-                        applyBone(root.getChild(bone), sample, bone);
+                    ModelPart part = ModelBones.find(root, bone);
+                    if (part != null) {
+                        applyBone(part, sample, bone);
                     } else {
                         MissingBoneWarnings.warnOnce(entityId, bone, modelName);
                     }

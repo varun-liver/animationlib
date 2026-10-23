@@ -3,6 +3,7 @@ package com.animationlib.mixin.client;
 import com.animationlib.api.Vec3f;
 import com.animationlib.client.BoneLookAt;
 import com.animationlib.client.MissingBoneWarnings;
+import com.animationlib.client.ModelBones;
 import com.animationlib.client.RenderStateEntityId;
 import com.animationlib.impl.AnimationPlayerImpl;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
@@ -35,8 +36,9 @@ abstract class QuadrupedModelMixin<T extends LivingEntityRenderState> {
                     if (bone.equals("camera")) {
                         return;
                     }
-                    if (root.hasChild(bone)) {
-                        animationlib$applyBone(root.getChild(bone), sample, bone);
+                    ModelPart part = ModelBones.find(root, bone);
+                    if (part != null) {
+                        animationlib$applyBone(part, sample, bone);
                     } else {
                         MissingBoneWarnings.warnOnce(entityId, bone, "QuadrupedModel");
                     }
