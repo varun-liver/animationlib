@@ -1,6 +1,7 @@
 package com.animationlib.mixin.client;
 
 import com.animationlib.api.Vec3f;
+import com.animationlib.client.ItemBoneApplier;
 import com.animationlib.impl.AnimationPlayerImpl;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -53,6 +54,23 @@ abstract class ItemInHandRendererMixin {
             InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress,
             PoseStack poseStack, SubmitNodeCollector collector, int light, CallbackInfo ci) {
         poseStack.popPose();
+    }
+
+    // Fires right before each place the held item itself is drawn, so the item can be animated
+    // independently of the arm (the arm hook above already moves the item along with the arm).
+    @Inject(method = "submitArmWithItem", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState;submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;III)V"))
+    private void animationlib$animateHeldItem(PlayerRenderState state, FirstPersonHandsAndItemsRenderState handsState, float partialTicks, float pitch,
+            InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress,
+            PoseStack poseStack, SubmitNodeCollector collector, int light, CallbackInfo ci) {
+        var player = Minecraft.getInstance().player;
+        if (player == null) {
+            return;
+        }
+
+        HumanoidArm mainArm = state.avatarRenderState.mainArm;
+        HumanoidArm arm = hand == InteractionHand.MAIN_HAND ? mainArm : mainArm.getOpposite();
+        ItemBoneApplier.apply(poseStack, player.getId(), arm);
     }
 
     // Always pairs with a popPose() in the matching @At("RETURN") injector above, even when there's

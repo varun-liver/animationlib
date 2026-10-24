@@ -17,7 +17,8 @@ import net.minecraft.resources.Identifier;
  */
 public record PlayAnimationPayload(int entityId, Identifier animationId, int cameraFollowEntityId,
                                     String cameraFollowBone, boolean forceThirdPerson,
-                                    boolean hideInventory, String sound) implements CustomPacketPayload {
+                                    boolean hideInventory, String sound, String item,
+                                    int itemNum) implements CustomPacketPayload {
     public static final Type<PlayAnimationPayload> TYPE =
             new Type<>(Identifier.fromNamespaceAndPath("animationlib", "play_animation"));
 
@@ -29,18 +30,27 @@ public record PlayAnimationPayload(int entityId, Identifier animationId, int cam
             ByteBufCodecs.BOOL, PlayAnimationPayload::forceThirdPerson,
             ByteBufCodecs.BOOL, PlayAnimationPayload::hideInventory,
             ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::sound,
+            ByteBufCodecs.STRING_UTF8, PlayAnimationPayload::item,
+            ByteBufCodecs.VAR_INT, PlayAnimationPayload::itemNum,
             PlayAnimationPayload::new
     );
 
     public static PlayAnimationPayload of(int entityId, Identifier animationId, Integer cameraFollowEntityId,
                                            String cameraFollowBone, boolean forceThirdPerson,
-                                           boolean hideInventory, Identifier sound) {
+                                           boolean hideInventory, Identifier sound, Identifier item,
+                                           Integer itemNum) {
         return new PlayAnimationPayload(entityId, animationId,
                 cameraFollowEntityId != null ? cameraFollowEntityId : -1,
                 cameraFollowBone != null ? cameraFollowBone : "",
                 forceThirdPerson,
                 hideInventory,
-                sound != null ? sound.toString() : "");
+                sound != null ? sound.toString() : "",
+                item != null ? item.toString() : "",
+                itemNum != null ? itemNum : -1);
+    }
+
+    public Integer resolvedItemNum() {
+        return itemNum < 0 ? null : itemNum;
     }
 
     public Integer resolvedCameraFollowEntityId() {
@@ -53,6 +63,10 @@ public record PlayAnimationPayload(int entityId, Identifier animationId, int cam
 
     public Identifier resolvedSound() {
         return sound.isEmpty() ? null : Identifier.tryParse(sound);
+    }
+
+    public Identifier resolvedItem() {
+        return item.isEmpty() ? null : Identifier.tryParse(item);
     }
 
     @Override

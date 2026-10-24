@@ -59,6 +59,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean)" tabindex="0">play(Entity, Identifier, Integer, String, boolean)</a></li>
 <li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier)" tabindex="0">play(Entity, Identifier, Integer, String, boolean, Identifier)</a></li>
 <li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" tabindex="0">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier)</a></li>
+<li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier)" tabindex="0">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier, Identifier)</a></li>
+<li><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" tabindex="0">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier, Identifier, Integer)</a></li>
 <li><a href="#stop(net.minecraft.world.entity.Entity)" tabindex="0">stop(Entity)</a></li>
 <li><a href="#isPlaying(net.minecraft.world.entity.Entity)" tabindex="0">isPlaying(Entity)</a></li>
 <li><a href="#isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" tabindex="0">isPlaying(Entity, Identifier)</a></li>
@@ -129,6 +131,27 @@ authority to trigger animations on other entities.</div>
  net.minecraft.resources.Identifier&nbsp;sound)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ boolean&nbsp;hideInventory,
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ boolean&nbsp;hideInventory,
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity,
  net.minecraft.resources.Identifier&nbsp;animationId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
@@ -192,6 +215,37 @@ authority to trigger animations on other entities.</div>
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
  net.minecraft.resources.Identifier&nbsp;sound)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier)">
+<h3>play</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">play</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ boolean&nbsp;hideInventory,
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)">
+<h3>play</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">play</span><wbr><span class="parameters">(net.minecraft.world.entity.Entity&nbsp;entity,
+ net.minecraft.resources.Identifier&nbsp;animationId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
+ boolean&nbsp;forceThirdPerson,
+ boolean&nbsp;hideInventory,
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</span></div>
 </div>
 </section>
 </li>

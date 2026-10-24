@@ -58,7 +58,7 @@ loadScripts(document, 'script');</script>
 <li><a href="#constructor-detail" tabindex="0">Constructor Details</a>
 <ol class="toc-list">
 <li><a href="#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map)" tabindex="0">AnimationData(String, boolean, double, Map)</a></li>
-<li><a href="#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String)" tabindex="0">AnimationData(String, boolean, double, Map, boolean, boolean, boolean, String, String)</a></li>
+<li><a href="#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)" tabindex="0">AnimationData(String, boolean, double, Map, boolean, boolean, boolean, String, String, String, Integer)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
@@ -75,6 +75,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#hideInventory()" tabindex="0">hideInventory()</a></li>
 <li><a href="#cameraFollowsPlayer()" tabindex="0">cameraFollowsPlayer()</a></li>
 <li><a href="#sound()" tabindex="0">sound()</a></li>
+<li><a href="#item()" tabindex="0">item()</a></li>
+<li><a href="#itemNum()" tabindex="0">itemNum()</a></li>
 </ol>
 </li>
 </ol>
@@ -92,7 +94,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">AnimationData</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name, boolean&nbsp;loop, double&nbsp;length, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>, <a href="BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a>&gt;&nbsp;bones, boolean&nbsp;relative, boolean&nbsp;forceThirdPerson, boolean&nbsp;hideInventory, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowsPlayer, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">AnimationData</span>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name, boolean&nbsp;loop, double&nbsp;length, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>, <a href="BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a>&gt;&nbsp;bones, boolean&nbsp;relative, boolean&nbsp;forceThirdPerson, boolean&nbsp;hideInventory, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowsPlayer, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a></span></div>
 <div class="block">A parsed animation: its loop flag, length in seconds, per-bone keyframe channels, whether the
 <code>camera</code> bone's position is relative to the player (<code>true</code>) or absolute world
@@ -102,7 +104,12 @@ coordinates (<code>false</code>), and whether playing it forces third-person vie
 bone of the animated entity the camera locks onto (<code>camera_follows_player</code> in the JSON, e.g.
 <code>"right_arm"</code>), like <a href="Animation.html#cameraFollowsPlayer(java.lang.String)"><code>Animation.cameraFollowsPlayer(String)</code></a>. <code>sound</code>, if not
 <code>null</code>, is played every time the animation starts (<code>sound</code> in the JSON, e.g.
-<code>"modid:whoosh"</code> for <code>assets/modid/animationlib/sounds/whoosh.ogg</code>).</div>
+<code>"modid:whoosh"</code> for <code>assets/modid/animationlib/sounds/whoosh.ogg</code>). <code>item</code>, if
+not <code>null</code>, is the id of the item shown in the animated entity's main hand while the
+animation plays (<code>item</code> in the JSON, e.g. <code>"minecraft:diamond_sword"</code>), like
+<code>Animation.item</code>. <code>itemNum</code>, if not <code>null</code>, is the inventory slot whose item is
+shown instead (<code>item_num</code> in the JSON, 0-8 the hotbar, 9-35 the rest of the inventory);
+ignored when <code>item</code> is set, like <code>Animation.itemNum</code>.</div>
 </div>
 </section>
 <section class="summary">
@@ -120,7 +127,7 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
  double&nbsp;length,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>, <a href="BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a>&gt;&nbsp;bones)</code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String)" class="member-name-link">AnimationData</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
+<div class="col-constructor-name odd-row-color"><code><a href="#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)" class="member-name-link">AnimationData</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
  boolean&nbsp;loop,
  double&nbsp;length,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>, <a href="BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a>&gt;&nbsp;bones,
@@ -128,7 +135,9 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowsPlayer,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</code></div>
 <div class="col-last odd-row-color">
 <div class="block">Creates an instance of a <code>AnimationData</code> record class.</div>
 </div>
@@ -175,6 +184,16 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#hideInventory()" class="member-name-link">hideInventory</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>hideInventory</code> record component.</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item()" class="member-name-link">item</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#itemNum()" class="member-name-link">itemNum</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>double</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#length()" class="member-name-link">length</a>()</code></div>
@@ -235,7 +254,7 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)">
 <h3>AnimationData</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">AnimationData</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name,
@@ -246,7 +265,9 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowsPlayer,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</span></div>
 <div class="block">Creates an instance of a <code>AnimationData</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -259,6 +280,8 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
 <dd><code>hideInventory</code> - the value for the <code>hideInventory</code> record component</dd>
 <dd><code>cameraFollowsPlayer</code> - the value for the <code>cameraFollowsPlayer</code> record component</dd>
 <dd><code>sound</code> - the value for the <code>sound</code> record component</dd>
+<dd><code>item</code> - the value for the <code>item</code> record component</dd>
+<dd><code>itemNum</code> - the value for the <code>itemNum</code> record component</dd>
 </dl>
 </div>
 </section>
@@ -431,6 +454,32 @@ bone of the animated entity the camera locks onto (<code>camera_follows_player</
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <code>sound</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="item()">
+<h3>item</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">item</span>()</div>
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>item</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="itemNum()">
+<h3>itemNum</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">itemNum</span>()</div>
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>itemNum</code> record component</dd>
 </dl>
 </div>
 </section>

@@ -98,7 +98,7 @@ coordinates (<code>false</code>), and whether playing it forces third-person vie
 </dd>
 <dt><a href="com/animationlib/api/AnimationData.html#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map)" class="member-name-link">AnimationData(String, boolean, double, Map)</a> - Constructor for record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/animationlib/api/AnimationData.html#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String)" class="member-name-link">AnimationData(String, boolean, double, Map, boolean, boolean, boolean, String, String)</a> - Constructor for record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
+<dt><a href="com/animationlib/api/AnimationData.html#%3Cinit%3E(java.lang.String,boolean,double,java.util.Map,boolean,boolean,boolean,java.lang.String,java.lang.String,java.lang.String,java.lang.Integer)" class="member-name-link">AnimationData(String, boolean, double, Map, boolean, boolean, boolean, String, String, String, Integer)</a> - Constructor for record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>AnimationData</code> record class.</div>
 </dd>
@@ -377,6 +377,40 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html#isPlaying(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier)" class="member-name-link">isPlaying(Entity, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationData.html#item()" class="member-name-link">item()</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#item()" class="member-name-link">item()</a> - Method in record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#item()" class="member-name-link">item()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#item(java.lang.String)" class="member-name-link">item(String)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/Animation.html#item(net.minecraft.resources.Identifier)" class="member-name-link">item(Identifier)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">While this animation plays, the animated entity's main hand shows this item instead of
+whatever it's really holding (or nothing).</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#item(net.minecraft.world.item.Item)" class="member-name-link">item(Item)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationData.html#itemNum()" class="member-name-link">itemNum()</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/AnimationData.html" title="class in com.animationlib.api">AnimationData</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#itemNum()" class="member-name-link">itemNum()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
+</dd>
+<dt><a href="com/animationlib/api/Animation.html#itemNum(int)" class="member-name-link">itemNum(int)</a> - Method in class com.animationlib.api.<a href="com/animationlib/api/Animation.html" title="class in com.animationlib.api">Animation</a></dt>
+<dd>
+<div class="block">Like <code>Animation.item</code>, but picks the item from the played-on player's inventory: <code>slot</code>
+0-8 is the hotbar, 9-35 the rest of the inventory.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:K">K</h2>
 <dl class="index">
@@ -421,7 +455,7 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
-<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" class="member-name-link">of(int, Identifier, Integer, String, boolean, boolean, Identifier)</a> - Static method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">of(int, Identifier, Integer, String, boolean, boolean, Identifier, Identifier, Integer)</a> - Static method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/Animationlib.html#onInitialize()" class="member-name-link">onInitialize()</a> - Method in class com.animationlib.<a href="com/animationlib/Animationlib.html" title="class in com.animationlib">Animationlib</a></dt>
 <dd>&nbsp;</dd>
@@ -430,7 +464,7 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
-<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#play(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean)" class="member-name-link">play(int, Identifier, Integer, String, boolean, boolean)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#play(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" class="member-name-link">play(int, Identifier, Integer, String, boolean, boolean, Identifier)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AudioTrack.html#play(java.lang.String)" class="member-name-link">play(String)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AudioTrack.html" title="class in com.animationlib.api">AudioTrack</a></dt>
 <dd>
@@ -446,6 +480,10 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean, boolean, Identifier, Identifier, Integer)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/AnimationPlayer.html#play(net.minecraft.world.entity.Entity,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,net.minecraft.resources.Identifier)" class="member-name-link">play(Entity, Identifier, Integer, String, boolean, Identifier)</a> - Static method in class com.animationlib.api.<a href="com/animationlib/api/AnimationPlayer.html" title="class in com.animationlib.api">AnimationPlayer</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html" class="type-name-link" title="class in com.animationlib.impl.net">PlayAnimationPayload</a> - Record Class in <a href="com/animationlib/impl/net/package-summary.html">com.animationlib.impl.net</a></dt>
@@ -453,7 +491,7 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 <div class="block">Serverbound, it's a play request from a client for its own player; <code>entityId</code> is ignored
 and re-derived from the sender.</div>
 </dd>
-<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String)" class="member-name-link">PlayAnimationPayload(int, Identifier, int, String, boolean, boolean, String)</a> - Constructor for record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String,java.lang.String,int)" class="member-name-link">PlayAnimationPayload(int, Identifier, int, String, boolean, boolean, String, String, int)</a> - Constructor for record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>PlayAnimationPayload</code> record class.</div>
 </dd>
@@ -490,6 +528,10 @@ and re-derived from the sender.</div>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedCameraFollowEntityId()" class="member-name-link">resolvedCameraFollowEntityId()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedItem()" class="member-name-link">resolvedItem()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedItemNum()" class="member-name-link">resolvedItemNum()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/animationlib/impl/net/PlayAnimationPayload.html#resolvedSound()" class="member-name-link">resolvedSound()</a> - Method in record class com.animationlib.impl.net.<a href="com/animationlib/impl/net/PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/animationlib/api/BoneAnimation.html#rotation()" class="member-name-link">rotation()</a> - Method in record class com.animationlib.api.<a href="com/animationlib/api/BoneAnimation.html" title="class in com.animationlib.api">BoneAnimation</a></dt>
@@ -503,7 +545,7 @@ and re-derived from the sender.</div>
 <dl class="index">
 <dt><a href="com/animationlib/impl/AnimationPlayerImpl.html#sample(int)" class="member-name-link">sample(int)</a> - Static method in class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.html" title="class in com.animationlib.impl">AnimationPlayerImpl</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#%3Cinit%3E(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,boolean,double)" class="member-name-link">Sample(AnimationData, Integer, String, boolean, boolean, double)</a> - Constructor for record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
+<dt><a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html#%3Cinit%3E(com.animationlib.api.AnimationData,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,double)" class="member-name-link">Sample(AnimationData, Integer, String, boolean, boolean, Identifier, double)</a> - Constructor for record class com.animationlib.impl.<a href="com/animationlib/impl/AnimationPlayerImpl.Sample.html" title="class in com.animationlib.impl">AnimationPlayerImpl.Sample</a></dt>
 <dd>
 <div class="block">Creates an instance of a <code>Sample</code> record class.</div>
 </dd>

@@ -15,6 +15,13 @@ public final class MissingBoneWarnings {
     private MissingBoneWarnings() {
     }
 
+    public static void warnOnceItem(Object itemId) {
+        if (WARNED.add("item:" + itemId)) {
+            LOGGER.warn("animationlib: unknown item \"{}\" in an animation's item field; showing the real held item",
+                    itemId);
+        }
+    }
+
     public static void warnOnce(int entityId, String bone, String modelClassName) {
         if (WARNED.add(entityId + ":" + bone)) {
             LOGGER.warn("animationlib: entity {} has no \"{}\" part on its {} model; that bone won't animate",

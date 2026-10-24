@@ -26,7 +26,7 @@ public class AnimationlibClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) -> {
             AnimationPlayerImpl.play(payload.entityId(), payload.animationId(),
                     payload.resolvedCameraFollowEntityId(), payload.resolvedCameraFollowBone(),
-                    payload.forceThirdPerson(), payload.hideInventory());
+                    payload.forceThirdPerson(), payload.hideInventory(), payload.resolvedItem());
             // An explicit sound from AudioTrack wins over the animation's own "sound" field.
             Identifier sound = payload.resolvedSound();
             if (sound == null) {

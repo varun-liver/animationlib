@@ -65,15 +65,17 @@ loadScripts(document, 'script');</script>
 </li>
 <li><a href="#constructor-detail" tabindex="0">Constructor Details</a>
 <ol class="toc-list">
-<li><a href="#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String)" tabindex="0">PlayAnimationPayload(int, Identifier, int, String, boolean, boolean, String)</a></li>
+<li><a href="#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String,java.lang.String,int)" tabindex="0">PlayAnimationPayload(int, Identifier, int, String, boolean, boolean, String, String, int)</a></li>
 </ol>
 </li>
 <li><a href="#method-detail" tabindex="0">Method Details</a>
 <ol class="toc-list">
-<li><a href="#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" tabindex="0">of(int, Identifier, Integer, String, boolean, boolean, Identifier)</a></li>
+<li><a href="#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" tabindex="0">of(int, Identifier, Integer, String, boolean, boolean, Identifier, Identifier, Integer)</a></li>
+<li><a href="#resolvedItemNum()" tabindex="0">resolvedItemNum()</a></li>
 <li><a href="#resolvedCameraFollowEntityId()" tabindex="0">resolvedCameraFollowEntityId()</a></li>
 <li><a href="#resolvedCameraFollowBone()" tabindex="0">resolvedCameraFollowBone()</a></li>
 <li><a href="#resolvedSound()" tabindex="0">resolvedSound()</a></li>
+<li><a href="#resolvedItem()" tabindex="0">resolvedItem()</a></li>
 <li><a href="#type()" tabindex="0">type()</a></li>
 <li><a href="#toString()" tabindex="0">toString()</a></li>
 <li><a href="#hashCode()" tabindex="0">hashCode()</a></li>
@@ -85,6 +87,8 @@ loadScripts(document, 'script');</script>
 <li><a href="#forceThirdPerson()" tabindex="0">forceThirdPerson()</a></li>
 <li><a href="#hideInventory()" tabindex="0">hideInventory()</a></li>
 <li><a href="#sound()" tabindex="0">sound()</a></li>
+<li><a href="#item()" tabindex="0">item()</a></li>
+<li><a href="#itemNum()" tabindex="0">itemNum()</a></li>
 </ol>
 </li>
 </ol>
@@ -106,7 +110,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="horizontal-scroll">
-<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PlayAnimationPayload</span>(int&nbsp;entityId, net.minecraft.resources.Identifier&nbsp;animationId, int&nbsp;cameraFollowEntityId, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone, boolean&nbsp;forceThirdPerson, boolean&nbsp;hideInventory, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)
+<div class="type-signature"><span class="modifiers">public record </span><span class="element-name type-name-label">PlayAnimationPayload</span>(int&nbsp;entityId, net.minecraft.resources.Identifier&nbsp;animationId, int&nbsp;cameraFollowEntityId, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone, boolean&nbsp;forceThirdPerson, boolean&nbsp;hideInventory, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound, <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item, int&nbsp;itemNum)
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Record.html" title="class or interface in java.lang" class="external-link">Record</a>
 implements net.minecraft.network.protocol.common.custom.CustomPacketPayload</span></div>
 <div class="block">Serverbound, it's a play request from a client for its own player; <code>entityId</code> is ignored
@@ -155,13 +159,15 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <div class="summary-table two-column-summary">
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
-<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String)" class="member-name-link">PlayAnimationPayload</a><wbr>(int&nbsp;entityId,
+<div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String,java.lang.String,int)" class="member-name-link">PlayAnimationPayload</a><wbr>(int&nbsp;entityId,
  net.minecraft.resources.Identifier&nbsp;animationId,
  int&nbsp;cameraFollowEntityId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)</code></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item,
+ int&nbsp;itemNum)</code></div>
 <div class="col-last even-row-color">
 <div class="block">Creates an instance of a <code>PlayAnimationPayload</code> record class.</div>
 </div>
@@ -219,20 +225,38 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Returns the value of the <code>hideInventory</code> record component.</div>
 </div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item()" class="member-name-link">item</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#itemNum()" class="member-name-link">itemNum</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)" class="member-name-link">of</a><wbr>(int&nbsp;entityId,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)" class="member-name-link">of</a><wbr>(int&nbsp;entityId,
  net.minecraft.resources.Identifier&nbsp;animationId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;cameraFollowEntityId,
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
- net.minecraft.resources.Identifier&nbsp;sound)</code></div>
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolvedCameraFollowBone()" class="member-name-link">resolvedCameraFollowBone</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolvedCameraFollowEntityId()" class="member-name-link">resolvedCameraFollowEntityId</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>net.minecraft.resources.Identifier</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolvedItem()" class="member-name-link">resolvedItem</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolvedItemNum()" class="member-name-link">resolvedItemNum</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>net.minecraft.resources.Identifier</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#resolvedSound()" class="member-name-link">resolvedSound</a>()</code></div>
@@ -292,7 +316,7 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String)">
+<section class="detail" id="&lt;init&gt;(int,net.minecraft.resources.Identifier,int,java.lang.String,boolean,boolean,java.lang.String,java.lang.String,int)">
 <h3>PlayAnimationPayload</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">PlayAnimationPayload</span><wbr><span class="parameters">(int&nbsp;entityId,
@@ -301,7 +325,9 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
- <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound)</span></div>
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;sound,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item,
+ int&nbsp;itemNum)</span></div>
 <div class="block">Creates an instance of a <code>PlayAnimationPayload</code> record class.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -312,6 +338,8 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <dd><code>forceThirdPerson</code> - the value for the <code>forceThirdPerson</code> record component</dd>
 <dd><code>hideInventory</code> - the value for the <code>hideInventory</code> record component</dd>
 <dd><code>sound</code> - the value for the <code>sound</code> record component</dd>
+<dd><code>item</code> - the value for the <code>item</code> record component</dd>
+<dd><code>itemNum</code> - the value for the <code>itemNum</code> record component</dd>
 </dl>
 </div>
 </section>
@@ -325,7 +353,7 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier)">
+<section class="detail" id="of(int,net.minecraft.resources.Identifier,java.lang.Integer,java.lang.String,boolean,boolean,net.minecraft.resources.Identifier,net.minecraft.resources.Identifier,java.lang.Integer)">
 <h3>of</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="PlayAnimationPayload.html" title="class in com.animationlib.impl.net">PlayAnimationPayload</a></span>&nbsp;<span class="element-name">of</span><wbr><span class="parameters">(int&nbsp;entityId,
@@ -334,7 +362,17 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
  <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;cameraFollowBone,
  boolean&nbsp;forceThirdPerson,
  boolean&nbsp;hideInventory,
- net.minecraft.resources.Identifier&nbsp;sound)</span></div>
+ net.minecraft.resources.Identifier&nbsp;sound,
+ net.minecraft.resources.Identifier&nbsp;item,
+ <a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&nbsp;itemNum)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolvedItemNum()">
+<h3>resolvedItemNum</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">resolvedItemNum</span>()</div>
 </div>
 </section>
 </li>
@@ -359,6 +397,14 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <h3>resolvedSound</h3>
 <div class="horizontal-scroll">
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">net.minecraft.resources.Identifier</span>&nbsp;<span class="element-name">resolvedSound</span>()</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="resolvedItem()">
+<h3>resolvedItem</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">net.minecraft.resources.Identifier</span>&nbsp;<span class="element-name">resolvedItem</span>()</div>
 </div>
 </section>
 </li>
@@ -508,6 +554,32 @@ no camera-follow target is set; use <a href="#resolvedCameraFollowEntityId()"><c
 <dl class="notes">
 <dt>Returns:</dt>
 <dd>the value of the <code>sound</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="item()">
+<h3>item</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">item</span>()</div>
+<div class="block">Returns the value of the <code>item</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>item</code> record component</dd>
+</dl>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="itemNum()">
+<h3>itemNum</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">itemNum</span>()</div>
+<div class="block">Returns the value of the <code>itemNum</code> record component.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the value of the <code>itemNum</code> record component</dd>
 </dl>
 </div>
 </section>

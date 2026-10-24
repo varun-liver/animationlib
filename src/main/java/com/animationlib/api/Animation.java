@@ -1,7 +1,9 @@
 package com.animationlib.api;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +48,8 @@ public final class Animation {
 
     private boolean forceThirdPerson;
     private boolean hideInventory;
+    private Identifier item;
+    private Integer itemNum;
 
     // Every handle made through init(), by id (the latest one wins), so /animation can play an
     // animation with the options its handle was configured with.
@@ -85,6 +89,8 @@ public final class Animation {
         copy.cameraFollowBone = cameraFollowBone;
         copy.forceThirdPerson = forceThirdPerson;
         copy.hideInventory = hideInventory;
+        copy.item = item;
+        copy.itemNum = itemNum;
         return copy;
     }
 
@@ -151,13 +157,45 @@ public final class Animation {
         return this;
     }
 
+    /**
+     * While this animation plays, the animated entity's main hand shows this item instead of
+     * whatever it's really holding (or nothing). Animate it with the {@code item},
+     * {@code item_left} and {@code item_right} bones. Takes the item's id, e.g.
+     * {@code "minecraft:diamond_sword"}; pass {@code null} to go back to the animation's own
+     * {@code item} field, if any. Purely visual: the entity's real inventory is untouched.
+     */
+    public Animation item(Identifier item) {
+        this.item = item;
+        return this;
+    }
+
+    public Animation item(String item) {
+        return item(item == null ? null : Identifier.parse(item));
+    }
+
+    public Animation item(Item item) {
+        return item(BuiltInRegistries.ITEM.getKey(item));
+    }
+
+    /**
+     * Like {@link #item}, but picks the item from the played-on player's inventory: {@code slot}
+     * 0-8 is the hotbar, 9-35 the rest of the inventory. The slot is read when the animation
+     * starts (later changes to it aren't followed), and only works on players. An explicit
+     * {@link #item} wins over this; an empty slot leaves the real held item shown. Pass a
+     * negative number to clear it and go back to the animation's own {@code item_num} field.
+     */
+    public Animation itemNum(int slot) {
+        this.itemNum = slot < 0 ? null : slot;
+        return this;
+    }
+
     public Identifier id() {
         return id;
     }
 
     public void play(Entity entity) {
         AnimationPlayer.play(entity, id, cameraFollowId(entity), cameraFollowBone, forceThirdPerson,
-                hideInventory, null);
+                hideInventory, null, item, itemNum);
     }
 
     public void stop(Entity entity) {

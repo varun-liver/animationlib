@@ -26,7 +26,8 @@ public class Animationlib implements ModInitializer {
             Entity target = resolveRequestedEntity(context.player(), payload.entityId());
             AnimationPlayer.play(target, payload.animationId(), payload.resolvedCameraFollowEntityId(),
                     payload.resolvedCameraFollowBone(), payload.forceThirdPerson(),
-                    payload.hideInventory(), payload.resolvedSound());
+                    payload.hideInventory(), payload.resolvedSound(), payload.resolvedItem(),
+                    payload.resolvedItemNum());
         });
         ServerPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) ->
                 AnimationPlayer.stop(resolveRequestedEntity(context.player(), payload.entityId())));

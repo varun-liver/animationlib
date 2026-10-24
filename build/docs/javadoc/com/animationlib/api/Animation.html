@@ -66,6 +66,10 @@ loadScripts(document, 'script');</script>
 <li><a href="#cameraFollowsEntity(net.minecraft.world.entity.Entity,java.lang.String)" tabindex="0">cameraFollowsEntity(Entity, String)</a></li>
 <li><a href="#forceThirdPerson(boolean)" tabindex="0">forceThirdPerson(boolean)</a></li>
 <li><a href="#hideInventory(boolean)" tabindex="0">hideInventory(boolean)</a></li>
+<li><a href="#item(net.minecraft.resources.Identifier)" tabindex="0">item(Identifier)</a></li>
+<li><a href="#item(java.lang.String)" tabindex="0">item(String)</a></li>
+<li><a href="#item(net.minecraft.world.item.Item)" tabindex="0">item(Item)</a></li>
+<li><a href="#itemNum(int)" tabindex="0">itemNum(int)</a></li>
 <li><a href="#id()" tabindex="0">id()</a></li>
 <li><a href="#play(net.minecraft.world.entity.Entity)" tabindex="0">play(Entity)</a></li>
 <li><a href="#stop(net.minecraft.world.entity.Entity)" tabindex="0">stop(Entity)</a></li>
@@ -174,6 +178,24 @@ drawn, nor are the health, hunger, armor and XP bars around it.</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isPlaying(net.minecraft.world.entity.Entity)" class="member-name-link">isPlaying</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Animation.html" title="class in com.animationlib.api">Animation</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item(java.lang.String)" class="member-name-link">item</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Animation.html" title="class in com.animationlib.api">Animation</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item(net.minecraft.resources.Identifier)" class="member-name-link">item</a><wbr>(net.minecraft.resources.Identifier&nbsp;item)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">While this animation plays, the animated entity's main hand shows this item instead of
+whatever it's really holding (or nothing).</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Animation.html" title="class in com.animationlib.api">Animation</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#item(net.minecraft.world.item.Item)" class="member-name-link">item</a><wbr>(net.minecraft.world.item.Item&nbsp;item)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Animation.html" title="class in com.animationlib.api">Animation</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#itemNum(int)" class="member-name-link">itemNum</a><wbr>(int&nbsp;slot)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Like <code>item</code>, but picks the item from the played-on player's inventory: <code>slot</code>
+0-8 is the hotbar, 9-35 the rest of the inventory.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#play(net.minecraft.world.entity.Entity)" class="member-name-link">play</a><wbr>(net.minecraft.world.entity.Entity&nbsp;entity)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
@@ -314,6 +336,48 @@ duration, restoring whatever camera type was active before once it stops. Defaul
 <div class="block">When <code>true</code>, playing this animation hides the player's inventory for its duration: the
 inventory screen can't be opened (and is closed if already open), and the hotbar is not
 drawn, nor are the health, hunger, armor and XP bars around it. Defaults to <code>false</code>.</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="item(net.minecraft.resources.Identifier)">
+<h3>item</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Animation.html" title="class in com.animationlib.api">Animation</a></span>&nbsp;<span class="element-name">item</span><wbr><span class="parameters">(net.minecraft.resources.Identifier&nbsp;item)</span></div>
+<div class="block">While this animation plays, the animated entity's main hand shows this item instead of
+whatever it's really holding (or nothing). Animate it with the <code>item</code>,
+<code>item_left</code> and <code>item_right</code> bones. Takes the item's id, e.g.
+<code>"minecraft:diamond_sword"</code>; pass <code>null</code> to go back to the animation's own
+<code>item</code> field, if any. Purely visual: the entity's real inventory is untouched.</div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="item(java.lang.String)">
+<h3>item</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Animation.html" title="class in com.animationlib.api">Animation</a></span>&nbsp;<span class="element-name">item</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;item)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="item(net.minecraft.world.item.Item)">
+<h3>item</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Animation.html" title="class in com.animationlib.api">Animation</a></span>&nbsp;<span class="element-name">item</span><wbr><span class="parameters">(net.minecraft.world.item.Item&nbsp;item)</span></div>
+</div>
+</section>
+</li>
+<li>
+<section class="detail" id="itemNum(int)">
+<h3>itemNum</h3>
+<div class="horizontal-scroll">
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Animation.html" title="class in com.animationlib.api">Animation</a></span>&nbsp;<span class="element-name">itemNum</span><wbr><span class="parameters">(int&nbsp;slot)</span></div>
+<div class="block">Like <code>item</code>, but picks the item from the played-on player's inventory: <code>slot</code>
+0-8 is the hotbar, 9-35 the rest of the inventory. The slot is read when the animation
+starts (later changes to it aren't followed), and only works on players. An explicit
+<code>item</code> wins over this; an empty slot leaves the real held item shown. Pass a
+negative number to clear it and go back to the animation's own <code>item_num</code> field.</div>
 </div>
 </section>
 </li>

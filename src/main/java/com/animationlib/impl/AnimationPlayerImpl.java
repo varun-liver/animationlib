@@ -38,11 +38,12 @@ public final class AnimationPlayerImpl {
     }
 
     public static void play(int entityId, Identifier animationId, Integer cameraFollowEntityId,
-                             String cameraFollowBone, boolean forceThirdPerson, boolean hideInventory) {
+                             String cameraFollowBone, boolean forceThirdPerson, boolean hideInventory,
+                             Identifier item) {
         AnimationRegistry.get(animationId).ifPresentOrElse(
                 data -> {
                     PLAYING.put(entityId, new Playing(animationId, data, cameraFollowEntityId, cameraFollowBone,
-                            forceThirdPerson, hideInventory, System.currentTimeMillis()));
+                            forceThirdPerson, hideInventory, item, System.currentTimeMillis()));
                     LOGGER.info("animationlib: playing {} on entity {} (bones: {})", animationId, entityId,
                             data.bones().keySet());
                 },
@@ -96,11 +97,18 @@ public final class AnimationPlayerImpl {
 
         return Optional.of(new Sample(playing.data, playing.followEntityId(entityId), playing.followBone(),
                 playing.forceThirdPerson || playing.data.forceThirdPerson(),
-                playing.hideInventory || playing.data.hideInventory(), time));
+                playing.hideInventory || playing.data.hideInventory(), playing.item(), time));
     }
 
     private record Playing(Identifier id, AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
-                            boolean forceThirdPerson, boolean hideInventory, long startMillis) {
+                            boolean forceThirdPerson, boolean hideInventory, Identifier itemOverride,
+                            long startMillis) {
+        // An item set in code (Animation#item) wins over the animation's own "item" field.
+        Identifier item() {
+            return itemOverride != null ? itemOverride
+                    : data.item() != null ? Identifier.tryParse(data.item()) : null;
+        }
+
         // A camera target set in code (cameraFollowsPlayer/cameraFollowsEntity) wins; otherwise the
         // animation's own camera_follows_player, which always targets the entity it plays on.
         String followBone() {
@@ -116,7 +124,7 @@ public final class AnimationPlayerImpl {
     }
 
     public record Sample(AnimationData data, Integer cameraFollowEntityId, String cameraFollowBone,
-                          boolean forceThirdPerson, boolean hideInventory, double time) {
+                          boolean forceThirdPerson, boolean hideInventory, Identifier item, double time) {
         public Vec3f rotation(String bone) {
             return channel(bone, BoneAnimation::rotation);
         }
