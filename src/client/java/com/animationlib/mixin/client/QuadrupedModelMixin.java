@@ -9,6 +9,7 @@ import com.animationlib.impl.AnimationPlayerImpl;
 import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.QuadrupedModel;
+import net.minecraft.client.model.animal.turtle.TurtleModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import org.joml.Vector3f;
@@ -24,6 +25,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class QuadrupedModelMixin<T extends LivingEntityRenderState> {
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;)V", at = @At("TAIL"))
     private void animationlib$applyAnimation(T state, CallbackInfo ci) {
+        // The turtle overrides setupAnim and reapplies its pose after this runs; it has its own mixin.
+        if ((Object) this instanceof TurtleModel) {
+            return;
+        }
+
         Integer entityId = ((FabricRenderState) state).getData(RenderStateEntityId.KEY);
         BoneLookAt.beginModel(entityId);
         if (entityId == null) {

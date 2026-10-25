@@ -10,6 +10,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.FabricRenderState;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.monster.enderman.EndermanModel;
+import net.minecraft.client.model.monster.skeleton.SkeletonModel;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,6 +29,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 abstract class HumanoidModelMixin<T extends HumanoidRenderState> {
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("TAIL"))
     private void animationlib$applyAnimation(T state, CallbackInfo ci) {
+        // These override setupAnim and reapply their pose after this runs; they have their own mixins.
+        if ((Object) this instanceof SkeletonModel || (Object) this instanceof EndermanModel) {
+            return;
+        }
+
         Integer entityId = ((FabricRenderState) state).getData(RenderStateEntityId.KEY);
         // Handed off to ModelMixin, which captures this same model instance's render-time bone
         // positions for Animation#cameraFollowsEntity moments later, once renderToBuffer runs.
