@@ -22,6 +22,7 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,7 +34,10 @@ import java.util.Map;
  * ("glTF Binary", a small header plus a JSON chunk and an optional BIN chunk in one file). Only
  * animation data is used: translation ("position"), rotation, and scale channels targeting a
  * named node become that node's name's bone channels, same as the Bedrock/Blockbench format.
- * Rotation quaternions are converted to Euler XYZ degrees at load time. Translation is assumed to
+ * Rotation quaternions are converted to Euler XYZ degrees at load time. Every channel is made
+ * relative to its node's rest pose and converted from glTF's axes to model space (see
+ * {@link #buildChannel}), and all of a file's animations are merged into one (see
+ * {@link #combine}). Translation is assumed to
  * be authored at "1 Blender unit = 1 Minecraft block" and is scaled by 16 to match the 1/16-block
  * units the rest of this library (and ModelPart) uses elsewhere; if positions come out 16x too
  * big or too small, that's the constant to adjust. Morph-target ("weights") channels, sparse
@@ -200,7 +204,7 @@ final class GltfLoader {
             float[][] times = readAccessor(buffers, bufferViews, accessors, sampler.get("input").getAsInt());
             float[][] values = readAccessor(buffers, bufferViews, accessors, sampler.get("output").getAsInt());
 
-            BoneChannel boneChannel = buildChannel(path, interpolation, times, values);
+            BoneChannel boneChannel = buildChannel(path, interpolation, times, values, node);
             if (boneChannel == null) {
                 continue;
             }
@@ -223,21 +227,38 @@ final class GltfLoader {
         return new AnimationData(name, false, length, Map.copyOf(boneAnimations));
     }
 
-    private static BoneChannel buildChannel(String path, String interpolation, float[][] times, float[][] values) {
+    // The values are the node's absolute pose, but a bone is animated as an offset on top of the
+    // model part's own pose, so the node's rest pose (its own translation/rotation/scale, which
+    // is what it has when no animation touches it) is subtracted out first. glTF is Y-up with the
+    // front facing +Z; model space is Y-down with the front facing -Z, which is a 180 degree turn
+    // about X: translations become (x, -y, -z) and Euler angles (x, -y, -z).
+    private static BoneChannel buildChannel(String path, String interpolation, float[][] times, float[][] values,
+                                             JsonObject node) {
         boolean cubicSpline = "CUBICSPLINE".equals(interpolation);
         // CUBICSPLINE's tangents aren't evaluated; only the middle (value) triple is used, so a
         // cubic-spline channel plays back as if it were linear.
         String lerpMode = "STEP".equals(interpolation) ? "step" : "linear";
         boolean isRotation = path.equals("rotation");
 
+        float[] rest = restPose(node, path);
+        Quaternionf restInverse = isRotation
+                ? new Quaternionf(rest[0], rest[1], rest[2], rest[3]).invert() : null;
+
         List<Keyframe> keyframes = new ArrayList<>();
+        Vec3f previous = null;
         for (int i = 0; i < times.length; i++) {
             int valueIndex = cubicSpline ? i * 3 + 1 : i;
             if (valueIndex >= values.length) {
                 break;
             }
             float[] raw = values[valueIndex];
-            Vec3f value = isRotation ? quaternionToEuler(raw) : translationOrScale(path, raw);
+            Vec3f value;
+            if (isRotation) {
+                value = continuousEuler(quaternionToEuler(raw, restInverse), previous);
+                previous = value;
+            } else {
+                value = translationOrScale(path, raw, rest);
+            }
             keyframes.add(new Keyframe(times[i][0], value, value, lerpMode));
         }
         if (keyframes.isEmpty()) {
@@ -247,20 +268,98 @@ final class GltfLoader {
         return new BoneChannel(List.copyOf(keyframes));
     }
 
-    private static Vec3f translationOrScale(String path, float[] raw) {
-        if (path.equals("translation")) {
-            return new Vec3f(raw[0] * 16f, raw[1] * 16f, raw[2] * 16f);
+    // The node's own value for this channel: [x, y, z, w] for rotation, [x, y, z] otherwise.
+    private static float[] restPose(JsonObject node, String path) {
+        boolean scale = path.equals("scale");
+        JsonArray array = node.has(path) ? node.getAsJsonArray(path) : null;
+        float[] fallback = path.equals("rotation") ? new float[]{0f, 0f, 0f, 1f}
+                : new float[]{scale ? 1f : 0f, scale ? 1f : 0f, scale ? 1f : 0f};
+        if (array == null) {
+            return fallback;
         }
-        return new Vec3f(raw[0], raw[1], raw[2]);
+        float[] rest = new float[array.size()];
+        for (int i = 0; i < rest.length; i++) {
+            rest[i] = array.get(i).getAsFloat();
+        }
+        return rest;
     }
 
-    private static Vec3f quaternionToEuler(float[] xyzw) {
-        Vector3f euler = new Quaternionf(xyzw[0], xyzw[1], xyzw[2], xyzw[3]).getEulerAnglesXYZ(new Vector3f());
+    private static Vec3f translationOrScale(String path, float[] raw, float[] rest) {
+        if (path.equals("translation")) {
+            return new Vec3f((raw[0] - rest[0]) * 16f, -(raw[1] - rest[1]) * 16f, -(raw[2] - rest[2]) * 16f);
+        }
+        return new Vec3f(rest[0] != 0 ? raw[0] / rest[0] : raw[0],
+                rest[1] != 0 ? raw[1] / rest[1] : raw[1],
+                rest[2] != 0 ? raw[2] / rest[2] : raw[2]);
+    }
+
+    // The rotation relative to the rest rotation, in model space.
+    private static Vec3f quaternionToEuler(float[] xyzw, Quaternionf restInverse) {
+        Quaternionf delta = new Quaternionf(xyzw[0], xyzw[1], xyzw[2], xyzw[3]).normalize().mul(restInverse, new Quaternionf());
+        Vector3f euler = delta.getEulerAnglesXYZ(new Vector3f());
         return new Vec3f(
                 (float) Math.toDegrees(euler.x()),
-                (float) Math.toDegrees(euler.y()),
-                (float) Math.toDegrees(euler.z())
+                (float) -Math.toDegrees(euler.y()),
+                (float) -Math.toDegrees(euler.z())
         );
+    }
+
+    // One rotation has many Euler spellings (+-360, and (x+180, 180-y, z+180)); the keyframes are
+    // interpolated component by component, so pick the spelling closest to the previous keyframe
+    // or the animation spins the long way round whenever the conversion jumps between them.
+    private static Vec3f continuousEuler(Vec3f euler, Vec3f previous) {
+        if (previous == null) {
+            return euler;
+        }
+        Vec3f direct = unwrap(euler, previous);
+        Vec3f flipped = unwrap(new Vec3f(euler.x() + 180f, 180f - euler.y(), euler.z() + 180f), previous);
+        return distance(flipped, previous) < distance(direct, previous) ? flipped : direct;
+    }
+
+    private static Vec3f unwrap(Vec3f value, Vec3f previous) {
+        return new Vec3f(unwrap(value.x(), previous.x()), unwrap(value.y(), previous.y()),
+                unwrap(value.z(), previous.z()));
+    }
+
+    private static float unwrap(float angle, float reference) {
+        return angle - 360f * Math.round((angle - reference) / 360f);
+    }
+
+    private static float distance(Vec3f a, Vec3f b) {
+        float dx = a.x() - b.x();
+        float dy = a.y() - b.y();
+        float dz = a.z() - b.z();
+        return dx * dx + dy * dy + dz * dz;
+    }
+
+    /**
+     * Merges every animation (Blender "action") in one file into a single animation named
+     * {@code name}: all their bones together, as long as the longest one. If two actions animate
+     * the same channel of the same bone, the later one wins.
+     */
+    static AnimationData combine(String name, Collection<AnimationData> parts) {
+        Map<String, BoneChannel[]> merged = new LinkedHashMap<>();
+        double length = 0.0;
+        for (AnimationData part : parts) {
+            length = Math.max(length, part.length());
+            for (Map.Entry<String, BoneAnimation> bone : part.bones().entrySet()) {
+                BoneChannel[] channels = merged.computeIfAbsent(bone.getKey(), b -> new BoneChannel[3]);
+                BoneAnimation animation = bone.getValue();
+                if (animation.rotation() != null) {
+                    channels[0] = animation.rotation();
+                }
+                if (animation.position() != null) {
+                    channels[1] = animation.position();
+                }
+                if (animation.scale() != null) {
+                    channels[2] = animation.scale();
+                }
+            }
+        }
+
+        Map<String, BoneAnimation> bones = new LinkedHashMap<>();
+        merged.forEach((bone, c) -> bones.put(bone, new BoneAnimation(c[0], c[1], c[2])));
+        return new AnimationData(name, false, length, Map.copyOf(bones));
     }
 
     // Decodes a glTF accessor into `count` rows of componentCount floats each. Only FLOAT

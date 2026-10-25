@@ -11,10 +11,14 @@ import java.util.Optional;
  * populated automatically on resource reload. Supported formats are Blockbench/Bedrock
  * {@code .json} and glTF 2.0 {@code .gltf}/{@code .glb}.
  *
- * <p>An animation's id is <em>not</em> its filename: the namespace comes from the file's asset
- * path, and the path comes from the animation's own name inside the file, lowercased with anything
- * outside {@code [a-z0-9/._-]} replaced by {@code _}. So a Blender action {@code headAction}
- * exported into {@code assets/mymod/animationlib/animations/pig.glb} is {@code mymod:headaction},
+ * <p>For a glTF file, the id is its filename: {@code assets/mymod/animationlib/animations/pig.glb}
+ * is {@code mymod:pig} (a subfolder becomes part of the path, {@code mymod:mobs/pig}), and all of
+ * the file's animations (Blender actions) are merged into that one. File names must be lowercase,
+ * as Minecraft ignores resource files with capitals or spaces in their names.
+ *
+ * <p>For a Bedrock/Blockbench {@code .json} file the id is <em>not</em> its filename: the
+ * namespace comes from the file's asset path, and the path comes from each animation's own name
+ * inside the file, lowercased with anything outside {@code [a-z0-9/._-]} replaced by {@code _},
  * and one file can define several animations.
  */
 public final class AnimationRegistry {

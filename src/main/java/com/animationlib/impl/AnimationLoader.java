@@ -68,10 +68,13 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
             try {
                 String path = resourceId.getPath();
                 Map<String, AnimationData> parsed;
-                if (path.endsWith(".gltf")) {
-                    parsed = readGltf(manager, resourceId, entry.getValue());
-                } else if (path.endsWith(".glb")) {
-                    parsed = readGlb(manager, resourceId, entry.getValue());
+                if (path.endsWith(".gltf") || path.endsWith(".glb")) {
+                    Map<String, AnimationData> actions = path.endsWith(".gltf")
+                            ? readGltf(manager, resourceId, entry.getValue())
+                            : readGlb(manager, resourceId, entry.getValue());
+                    // A glTF file is one animation, named after the file, with all its actions merged.
+                    String name = fileId(path);
+                    parsed = actions.isEmpty() ? Map.of() : Map.of(name, GltfLoader.combine(name, actions.values()));
                 } else {
                     parsed = readBedrock(entry.getValue());
                 }
@@ -120,6 +123,12 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
             data = in.readAllBytes();
         }
         return GltfLoader.loadBinary(manager, resourceId, data);
+    }
+
+    // "animationlib/animations/mobs/wave.glb" -> "mobs/wave"
+    private static String fileId(String resourcePath) {
+        String relative = resourcePath.substring(DIRECTORY.length() + 1);
+        return relative.substring(0, relative.lastIndexOf('.'));
     }
 
     private static String stripAnimationPrefix(String key) {
