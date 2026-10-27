@@ -45,6 +45,7 @@ import java.util.Map;
  */
 final class GltfLoader {
     private static final int COMPONENT_TYPE_FLOAT = 5126;
+    private static final float STANDING_EYE_HEIGHT = 1.62f;
     private static final int GLB_MAGIC = 0x46546C67; // "glTF", little-endian
     private static final int GLB_CHUNK_JSON = 0x4E4F534A; // "JSON", little-endian
     private static final int GLB_CHUNK_BIN = 0x004E4942; // "BIN\0", little-endian
@@ -239,6 +240,12 @@ final class GltfLoader {
         // cubic-spline channel plays back as if it were linear.
         String lerpMode = "STEP".equals(interpolation) ? "step" : "linear";
         boolean isRotation = path.equals("rotation");
+        // A node named "camera" is where the camera goes, not an offset on a model part: its
+        // position is taken as is, in blocks, from the player's feet. CameraMixin adds it to the
+        // eye position, so the standing eye height comes off here. glTF's axes (+Y up, +Z front,
+        // +X left) are the world's when the player faces south.
+        boolean cameraPosition = path.equals("translation") && node.has("name")
+                && node.get("name").getAsString().equals("camera");
 
         float[] rest = restPose(node, path);
         Quaternionf restInverse = isRotation
@@ -256,6 +263,8 @@ final class GltfLoader {
             if (isRotation) {
                 value = continuousEuler(quaternionToEuler(raw, restInverse), previous);
                 previous = value;
+            } else if (cameraPosition) {
+                value = new Vec3f(raw[0], raw[1] - STANDING_EYE_HEIGHT, raw[2]);
             } else {
                 value = translationOrScale(path, raw, rest);
             }

@@ -39,7 +39,8 @@ abstract class QuadrupedModelMixin<T extends LivingEntityRenderState> {
         ModelPart root = ((Model<?>) (Object) this).root();
         AnimationPlayerImpl.sample(entityId).ifPresent(sample ->
                 sample.data().bones().keySet().forEach(bone -> {
-                    if (bone.equals("camera")) {
+                    if (bone.equals("camera") || bone.equals("item")
+                            || bone.equals("item_left") || bone.equals("item_right")) {
                         return;
                     }
                     ModelPart part = ModelBones.find(root, bone);
