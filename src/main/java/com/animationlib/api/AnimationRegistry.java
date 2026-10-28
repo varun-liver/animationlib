@@ -29,6 +29,11 @@ public final class AnimationRegistry {
         return AnimationLoader.get(id);
     }
 
+    /** Like {@link #get}, but throws instead of returning an empty Optional. */
+    public static AnimationData require(Identifier id) {
+        return get(id).orElseThrow(() -> new AnimationNotFoundException(id));
+    }
+
     public static Collection<Identifier> ids() {
         return AnimationLoader.ids();
     }

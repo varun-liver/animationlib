@@ -38,6 +38,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * player) or the logical server (any entity).
  */
 public final class Animation {
+    /** The last inventory slot {@link #itemNum} can pick: 0-8 is the hotbar, 9-35 the rest. */
+    public static final int MAX_ITEM_NUM = 35;
+
     private final Identifier id;
 
     // Which entity's bone the camera should look at: an explicit one (cameraFollowsEntity), or
@@ -169,8 +172,16 @@ public final class Animation {
         return this;
     }
 
+    /** @throws InvalidAnimationException if {@code item} isn't a valid id */
     public Animation item(String item) {
-        return item(item == null ? null : Identifier.parse(item));
+        if (item == null) {
+            return item((Identifier) null);
+        }
+        Identifier parsed = Identifier.tryParse(item);
+        if (parsed == null) {
+            throw new InvalidAnimationException("Invalid item id \"" + item + "\" for animation " + id);
+        }
+        return item(parsed);
     }
 
     public Animation item(Item item) {
@@ -183,8 +194,14 @@ public final class Animation {
      * starts (later changes to it aren't followed), and only works on players. An explicit
      * {@link #item} wins over this; an empty slot leaves the real held item shown. Pass a
      * negative number to clear it and go back to the animation's own {@code item_num} field.
+     *
+     * @throws InvalidAnimationException if {@code slot} is above 35
      */
     public Animation itemNum(int slot) {
+        if (slot > MAX_ITEM_NUM) {
+            throw new InvalidAnimationException("item_num " + slot + " is out of range (0-" + MAX_ITEM_NUM
+                    + ") for animation " + id);
+        }
         this.itemNum = slot < 0 ? null : slot;
         return this;
     }

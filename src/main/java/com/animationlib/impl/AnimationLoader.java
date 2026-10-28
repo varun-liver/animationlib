@@ -1,8 +1,10 @@
 package com.animationlib.impl;
 
+import com.animationlib.api.Animation;
 import com.animationlib.api.AnimationData;
 import com.animationlib.api.BoneAnimation;
 import com.animationlib.api.BoneChannel;
+import com.animationlib.api.InvalidAnimationException;
 import com.animationlib.api.Keyframe;
 import com.animationlib.api.Vec3f;
 import com.google.gson.Gson;
@@ -83,6 +85,8 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
                             sanitizeName(parsedEntry.getKey()));
                     loaded.put(animId, parsedEntry.getValue());
                 }
+            } catch (InvalidAnimationException e) {
+                LOGGER.error("Skipping animation file {}: {}", resourceId, e.getMessage());
             } catch (Exception e) {
                 LOGGER.error("Failed to load animation file {}", resourceId, e);
             }
@@ -166,6 +170,18 @@ public final class AnimationLoader implements SimpleSynchronousResourceReloadLis
         String item = json.has("item") && !json.get("item").isJsonNull() ? json.get("item").getAsString() : null;
         Integer itemNum = json.has("item_num") && !json.get("item_num").isJsonNull()
                 ? Integer.valueOf(json.get("item_num").getAsInt()) : null;
+        if (length < 0.0 || Double.isNaN(length)) {
+            throw new InvalidAnimationException("animation \"" + name + "\": animation_length " + length
+                    + " must not be negative");
+        }
+        if (item != null && Identifier.tryParse(item) == null) {
+            throw new InvalidAnimationException("animation \"" + name + "\": item \"" + item
+                    + "\" is not a valid item id");
+        }
+        if (itemNum != null && (itemNum < 0 || itemNum > Animation.MAX_ITEM_NUM)) {
+            throw new InvalidAnimationException("animation \"" + name + "\": item_num " + itemNum
+                    + " is out of range (0-" + Animation.MAX_ITEM_NUM + ")");
+        }
         return new AnimationData(name, loop, length, Map.copyOf(bones), relative, forceThirdPerson, hideInventory,
                 cameraFollowsPlayer, sound, item, itemNum);
     }
