@@ -11,6 +11,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.monster.enderman.EndermanModel;
+import net.minecraft.client.model.monster.piglin.AbstractPiglinModel;
 import net.minecraft.client.model.monster.skeleton.SkeletonModel;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import org.joml.Vector3f;
@@ -30,7 +31,8 @@ abstract class HumanoidModelMixin<T extends HumanoidRenderState> {
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("TAIL"))
     private void animationlib$applyAnimation(T state, CallbackInfo ci) {
         // These override setupAnim and reapply their pose after this runs; they have their own mixins.
-        if ((Object) this instanceof SkeletonModel || (Object) this instanceof EndermanModel) {
+        if ((Object) this instanceof SkeletonModel || (Object) this instanceof EndermanModel
+                || (Object) this instanceof AbstractPiglinModel) {
             return;
         }
 

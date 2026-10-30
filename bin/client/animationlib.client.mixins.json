@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "AbstractEquineModelMixin",
+    "AbstractPiglinModelMixin",
     "AdultAxolotlModelMixin",
     "AdultChickenModelMixin",
     "AdultFelineModelMixin",
@@ -26,6 +27,7 @@
     "CreakingModelMixin",
     "CreeperModelMixin",
     "DolphinModelMixin",
+    "EnderDragonModelMixin",
     "EndermanModelMixin",
     "EndermiteModelMixin",
     "EntityRendererMixin",
@@ -52,6 +54,7 @@
     "NautilusModelMixin",
     "ParrotModelMixin",
     "PhantomModelMixin",
+    "PiglinModelMixin",
     "PufferfishModelsMixin",
     "QuadrupedModelMixin",
     "RabbitModelMixin",
