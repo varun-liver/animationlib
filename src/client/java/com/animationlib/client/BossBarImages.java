@@ -14,15 +14,19 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
  * The image each boss bar draws instead of the vanilla bar texture (see {@code BossBar#bossbar}),
- * from {@code assets/<namespace>/animationlib/bossbar/<path>.png}. The server tells a client which
- * image goes with which bar; {@code BossHealthOverlayMixin} then calls {@link #draw}.
+ * from {@code assets/<namespace>/animationlib/bossbar/<path>.png}, or from layers
+ * {@code <path>layer0.png}, {@code <path>layer1.png}, ... drawn on top of each other, layer 0 at the
+ * bottom. The server tells a client which image goes with which bar;
+ * {@code BossHealthOverlayMixin} then calls {@link #draw}.
  */
 public final class BossBarImages implements SimpleSynchronousResourceReloadListener {
     public static final BossBarImages INSTANCE = new BossBarImages();
@@ -37,8 +41,8 @@ public final class BossBarImages implements SimpleSynchronousResourceReloadListe
 
     // Bar (boss event) uuid -> image id, as sent by the server.
     private static final Map<UUID, Identifier> BARS = new HashMap<>();
-    // Image id -> its texture and size, or empty if it doesn't exist. Cleared on resource reload.
-    private static final Map<Identifier, Optional<Image>> IMAGES = new HashMap<>();
+    // Image id -> its layers in draw order, or empty if it doesn't exist. Cleared on resource reload.
+    private static final Map<Identifier, List<Image>> IMAGES = new HashMap<>();
 
     private BossBarImages() {
     }
@@ -72,13 +76,20 @@ public final class BossBarImages implements SimpleSynchronousResourceReloadListe
         if (id == null) {
             return false;
         }
-        Image image = IMAGES.computeIfAbsent(id, key -> load(manager, key)).orElse(null);
-        if (image == null) {
+        List<Image> layers = IMAGES.computeIfAbsent(id, key -> load(manager, key));
+        if (layers.isEmpty()) {
             return false;
         }
 
-        int height = Math.max(1, Math.round(BAR_WIDTH * (float) image.height() / image.width()));
         int fill = Mth.lerpDiscrete(event.getProgress(), 0, BAR_WIDTH);
+        for (Image layer : layers) {
+            drawLayer(graphics, x, y, layer, fill);
+        }
+        return true;
+    }
+
+    private static void drawLayer(GuiGraphicsExtractor graphics, int x, int y, Image image, int fill) {
+        int height = Math.max(1, Math.round(BAR_WIDTH * (float) image.height() / image.width()));
         // The left part of the image at full brightness is the fill, the rest of it dimmed is the empty
         // bar. They sit side by side rather than overlapping, so draw order can't hide the fill.
         int fillSource = Math.round(fill * (float) image.width() / BAR_WIDTH);
@@ -91,22 +102,43 @@ public final class BossBarImages implements SimpleSynchronousResourceReloadListe
                     BAR_WIDTH - fill, height, Math.max(1, image.width() - fillSource), image.height(),
                     image.width(), image.height(), 0xFF606060);
         }
-        return true;
     }
 
-    private static Optional<Image> load(ResourceManager manager, Identifier id) {
-        Identifier texture = Identifier.fromNamespaceAndPath(id.getNamespace(), DIRECTORY + id.getPath() + ".png");
+    // The layers <path>layer0.png, <path>layer1.png, ... up to the first missing number, or else just
+    // <path>.png. Empty if neither exists.
+    private static List<Image> load(ResourceManager manager, Identifier id) {
+        List<Image> layers = new ArrayList<>();
+        for (int layer = 0; ; layer++) {
+            Image image = read(manager, id, id.getPath() + "layer" + layer, false);
+            if (image == null) {
+                break;
+            }
+            layers.add(image);
+        }
+        if (layers.isEmpty()) {
+            Image image = read(manager, id, id.getPath(), true);
+            if (image != null) {
+                layers.add(image);
+            }
+        }
+        return List.copyOf(layers);
+    }
+
+    private static Image read(ResourceManager manager, Identifier id, String path, boolean warnIfMissing) {
+        Identifier texture = Identifier.fromNamespaceAndPath(id.getNamespace(), DIRECTORY + path + ".png");
         Optional<Resource> resource = manager.getResource(texture);
         if (resource.isEmpty()) {
-            LOGGER.warn("animationlib: no boss bar image {} (expected at assets/{}/{})", id, texture.getNamespace(),
-                    texture.getPath());
-            return Optional.empty();
+            if (warnIfMissing) {
+                LOGGER.warn("animationlib: no boss bar image {} (expected at assets/{}/{}, or as layers {}layer0.png ...)",
+                        id, texture.getNamespace(), texture.getPath(), id.getPath());
+            }
+            return null;
         }
         try (InputStream stream = resource.get().open(); NativeImage pixels = NativeImage.read(stream)) {
-            return Optional.of(new Image(texture, pixels.getWidth(), pixels.getHeight()));
+            return new Image(texture, pixels.getWidth(), pixels.getHeight());
         } catch (IOException e) {
             LOGGER.warn("animationlib: could not read boss bar image {}", texture, e);
-            return Optional.empty();
+            return null;
         }
     }
 }

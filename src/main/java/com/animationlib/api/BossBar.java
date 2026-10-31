@@ -25,8 +25,10 @@ public final class BossBar {
      * <p>{@code image} replaces the vanilla bar texture: the PNG at
      * {@code assets/<namespace>/animationlib/bossbar/<path>.png}, for the id {@code namespace:path}.
      * It is drawn 182 pixels wide (as tall as its proportions give), dimmed as the empty part of
-     * the bar, and at full brightness for the filled part. A client that has no such image shows
-     * the vanilla bar.
+     * the bar, and at full brightness for the filled part. Instead of one PNG there can be layers,
+     * {@code <path>layer0.png}, {@code <path>layer1.png}, and so on (up to the first missing
+     * number), drawn on top of each other with layer 0 at the bottom; each one fills with health.
+     * A client that has neither shows the vanilla bar.
      *
      * @param image  the image's id, or {@code null} for the vanilla bar texture
      * @param entity a living entity, since only those have health
