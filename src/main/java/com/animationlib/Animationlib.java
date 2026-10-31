@@ -2,6 +2,9 @@ package com.animationlib;
 
 import com.animationlib.api.AnimationPlayer;
 import com.animationlib.impl.AnimationCommand;
+import com.animationlib.impl.BossBarCommand;
+import com.animationlib.impl.BossBarManager;
+import com.animationlib.impl.net.BossBarImagePayload;
 import com.animationlib.impl.net.PlayAnimationPayload;
 import com.animationlib.impl.net.StopAnimationPayload;
 import net.fabricmc.api.ModInitializer;
@@ -16,11 +19,15 @@ public class Animationlib implements ModInitializer {
     @Override
     public void onInitialize() {
         AnimationCommand.init();
+        BossBarManager.init();
+        BossBarCommand.init();
 
         PayloadTypeRegistry.serverboundPlay().register(PlayAnimationPayload.TYPE, PlayAnimationPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(PlayAnimationPayload.TYPE, PlayAnimationPayload.CODEC);
         PayloadTypeRegistry.serverboundPlay().register(StopAnimationPayload.TYPE, StopAnimationPayload.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(StopAnimationPayload.TYPE, StopAnimationPayload.CODEC);
+
+        PayloadTypeRegistry.clientboundPlay().register(BossBarImagePayload.TYPE, BossBarImagePayload.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(PlayAnimationPayload.TYPE, (payload, context) -> {
             Entity target = resolveRequestedEntity(context.player(), payload.entityId());

@@ -18,6 +18,7 @@
     "BatModelMixin",
     "BeeModelMixin",
     "BlazeModelMixin",
+    "BossHealthOverlayMixin",
     "BreezeModelMixin",
     "CamelModelMixin",
     "CameraMixin",

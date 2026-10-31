@@ -3,9 +3,11 @@ package com.animationlib.client;
 import com.animationlib.impl.AnimationLoader;
 import com.animationlib.impl.AnimationPlayerImpl;
 import com.animationlib.impl.LocalAudio;
+import com.animationlib.impl.net.BossBarImagePayload;
 import com.animationlib.impl.net.PlayAnimationPayload;
 import com.animationlib.impl.net.StopAnimationPayload;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resources.Identifier;
@@ -16,6 +18,7 @@ public class AnimationlibClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(AnimationLoader.INSTANCE);
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(BossBarImages.INSTANCE);
 
         AnimationPlayerImpl.setClientSender(ClientPlayNetworking::send);
         ActionBarDisplay.init();
@@ -38,6 +41,9 @@ public class AnimationlibClient implements ClientModInitializer {
                 AnimationSounds.play(payload.entityId(), sound);
             }
         });
+        ClientPlayNetworking.registerGlobalReceiver(BossBarImagePayload.TYPE, (payload, context) ->
+                BossBarImages.set(payload.barId(), payload.resolvedImage()));
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> BossBarImages.clear());
         ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) -> {
             AnimationPlayerImpl.stop(payload.entityId());
             AnimationSounds.stop(payload.entityId());
