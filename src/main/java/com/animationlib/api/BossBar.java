@@ -35,7 +35,19 @@ public final class BossBar {
      */
     public static void bossbar(String id, BossEvent.BossBarColor color, String title, Identifier image,
                                LivingEntity entity) {
-        BossBarManager.show(id, color, title, image, entity);
+        bossbar(id, color, title, image, 0xFFFFFF, entity);
+    }
+
+    /**
+     * Like {@link #bossbar(String, BossEvent.BossBarColor, String, Identifier, LivingEntity)}, with
+     * {@code image} tinted by {@code rgb} (packed {@code 0xRRGGBB}, e.g. {@code 0xFF0000} for red;
+     * {@code 0xFFFFFF} draws it untinted). With no {@code image} ({@code null}) and an {@code rgb}
+     * other than {@code 0xFFFFFF}, a flat rectangle of that color is drawn instead of the vanilla
+     * bar texture.
+     */
+    public static void bossbar(String id, BossEvent.BossBarColor color, String title, Identifier image, int rgb,
+                               LivingEntity entity) {
+        BossBarManager.show(id, color, title, image, rgb, entity);
     }
 
     /** Like {@link #bossbar(String, BossEvent.BossBarColor, String, Identifier, LivingEntity)}, with the vanilla bar texture. */

@@ -42,7 +42,7 @@ public class AnimationlibClient implements ClientModInitializer {
             }
         });
         ClientPlayNetworking.registerGlobalReceiver(BossBarImagePayload.TYPE, (payload, context) ->
-                BossBarImages.set(payload.barId(), payload.resolvedImage()));
+                BossBarImages.set(payload.barId(), payload.resolvedImage(), payload.rgb()));
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> BossBarImages.clear());
         ClientPlayNetworking.registerGlobalReceiver(StopAnimationPayload.TYPE, (payload, context) -> {
             AnimationPlayerImpl.stop(payload.entityId());

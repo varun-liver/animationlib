@@ -52,6 +52,9 @@ public final class BossBarManager {
     private static final int RESOLVE_INTERVAL_TICKS = 10;
     private static final Gson GSON = new Gson();
 
+    // Packed 0xRRGGBB; tints the custom image (see Bar#rgb). 0xFFFFFF draws it untinted.
+    private static final int NO_TINT = 0xFFFFFF;
+
     private static final class Bar {
         final UUID entityUuid;
         final ServerBossEvent event;
@@ -59,14 +62,18 @@ public final class BossBarManager {
         String title;
         // Drawn instead of the vanilla bar texture, or null.
         Identifier image;
+        // Tints the image above, or (without one) is drawn as a solid-color bar instead of
+        // vanilla's fixed-palette texture. NO_TINT means neither: just the vanilla texture.
+        int rgb;
         // Null while the entity isn't loaded.
         LivingEntity entity;
 
-        Bar(UUID entityUuid, BossEvent.BossBarColor color, String title, Identifier image) {
+        Bar(UUID entityUuid, BossEvent.BossBarColor color, String title, Identifier image, int rgb) {
             this.entityUuid = entityUuid;
             this.color = color;
             this.title = title;
             this.image = image;
+            this.rgb = rgb;
             this.event = new ServerBossEvent(UUID.randomUUID(), Component.literal(title), color,
                     BossEvent.BossBarOverlay.PROGRESS);
         }
@@ -105,6 +112,15 @@ public final class BossBarManager {
 
     public static void show(String id, BossEvent.BossBarColor color, String title, Identifier image,
                             LivingEntity entity) {
+        show(id, color, title, image, NO_TINT, entity);
+    }
+
+    /** Like {@link #show(String, BossEvent.BossBarColor, String, Identifier, LivingEntity)}, colored
+     * by {@code rgb} (packed {@code 0xRRGGBB}): tints {@code image} if there is one, or else
+     * replaces the vanilla bar texture with a solid bar in that color. {@code color} still sets
+     * what vanilla itself falls back to, for clients without this mod. */
+    public static void show(String id, BossEvent.BossBarColor color, String title, Identifier image, int rgb,
+                            LivingEntity entity) {
         if (!(entity.level() instanceof ServerLevel level)) {
             return;
         }
@@ -118,13 +134,14 @@ public final class BossBarManager {
             if (bar != null) {
                 bar.event.removeAllPlayers();
             }
-            bar = new Bar(entity.getUUID(), color, title, image);
+            bar = new Bar(entity.getUUID(), color, title, image, rgb);
             BARS.put(id, bar);
         }
         bar.color = color;
         bar.title = title;
-        if (!Objects.equals(bar.image, image)) {
+        if (!Objects.equals(bar.image, image) || bar.rgb != rgb) {
             bar.image = image;
+            bar.rgb = rgb;
             for (ServerPlayer player : bar.event.getPlayers()) {
                 sendImage(bar, player);
             }
@@ -214,7 +231,7 @@ public final class BossBarManager {
 
     private static void sendImage(Bar bar, ServerPlayer player) {
         if (ServerPlayNetworking.canSend(player, BossBarImagePayload.TYPE)) {
-            ServerPlayNetworking.send(player, BossBarImagePayload.of(bar.event.getId(), bar.image));
+            ServerPlayNetworking.send(player, BossBarImagePayload.of(bar.event.getId(), bar.image, bar.rgb));
         }
     }
 
@@ -235,6 +252,9 @@ public final class BossBarManager {
             json.addProperty("title", bar.title);
             if (bar.image != null) {
                 json.addProperty("image", bar.image.toString());
+            }
+            if (bar.rgb != NO_TINT) {
+                json.addProperty("rgb", bar.rgb);
             }
             array.add(json);
         });
@@ -260,8 +280,9 @@ public final class BossBarManager {
                 BossEvent.BossBarColor color = BossEvent.BossBarColor.valueOf(
                         json.get("color").getAsString().toUpperCase(java.util.Locale.ROOT));
                 Identifier image = json.has("image") ? Identifier.tryParse(json.get("image").getAsString()) : null;
+                int rgb = json.has("rgb") ? json.get("rgb").getAsInt() : NO_TINT;
                 BARS.put(json.get("id").getAsString(), new Bar(UUID.fromString(json.get("entity").getAsString()),
-                        color, json.get("title").getAsString(), image));
+                        color, json.get("title").getAsString(), image, rgb));
             }
         } catch (Exception e) {
             LOGGER.error("animationlib: failed to read {}", path, e);
